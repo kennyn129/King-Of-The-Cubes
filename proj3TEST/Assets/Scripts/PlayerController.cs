@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float maxVelocity;
 	public float slowVelocity;
 	public float turnSpeed;
+	public float jumpForce;
     public int playerNum;
     public float reloadHammer;
     public float reloadHook;
@@ -255,6 +256,9 @@ public class PlayerController : MonoBehaviour
 				Debug.Log ("button was let go before timer reached placeHookTimer");
 				StartCoroutine (useHook ());
 				currVelocity = maxVelocity;
+			} else if (Input.GetKey (KeyCode.B) && isGrounded) {
+				Debug.Log ("Jump Key Pressed");
+				jump ();
 			}
 
 
@@ -262,9 +266,15 @@ public class PlayerController : MonoBehaviour
             {
                 move(moveHorizontal, moveVertical);
             }
+
+			rotate (currDirection);
         }
 
     }
+
+	void jump() {
+		playerRB.AddForce (new Vector3 (0, jumpForce, 0));
+	}
 
 	void placeHook() {
 		Debug.Log ("Just Placed Hook");
@@ -391,69 +401,65 @@ public class PlayerController : MonoBehaviour
 			anim.SetBool ("Running", false);
 		}
 
-
-
-        if (hor > 0)
-        {
-            if (ver < 0)
-            {
-                currDirection = Direction.SouthEast;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 135, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation,turnSpeed * Time.deltaTime);
-            }
-            else if (ver == 0)
-            {
-                currDirection = Direction.East;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 90, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-            }
-            else
-            {
-                currDirection = Direction.NorthEast;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 45, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-			}
-        }
-        else if (hor == 0)
-        {
-            if (ver < 0)
-            {
-                currDirection = Direction.South;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 180, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-            }
-            else if (ver > 0)
-            {
-                currDirection = Direction.North;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-			}
-        }
-        else
-        {
-            if (ver < 0)
-            {
-                currDirection = Direction.SouthWest;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 225, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-			}
-            else if (ver == 0)
-            {
-                currDirection = Direction.West;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 270, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-			}
-            else
-            {
-                currDirection = Direction.NorthWest;
-				Quaternion rotation = Quaternion.Euler (new Vector3 (0, 315, 0));
-				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
-			}
-        }
-
+		if (hor > 0 && ver > 0) {
+			currDirection = Direction.NorthEast;
+		} else if (hor > 0 && ver == 0) {
+			currDirection = Direction.East;
+		} else if (hor > 0 && ver < 0) {
+			currDirection = Direction.SouthEast;
+		} else if (hor == 0 && ver < 0) {
+			currDirection = Direction.South;
+		} else if (hor < 0 && ver < 0) {
+			currDirection = Direction.SouthWest;
+		} else if (hor < 0 && ver == 0) {
+			currDirection = Direction.West;
+		} else if (hor < 0 && ver > 0) {
+			currDirection = Direction.NorthWest;
+		} else if (hor == 0 && ver > 0) {
+			currDirection = Direction.North;
+		}   
     }
 
-
+	void rotate(Direction dir) {
+		Quaternion rotation;
+		switch (currDirection)
+		{
+		case Direction.North:
+			rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			break;
+		case Direction.NorthEast:
+			rotation = Quaternion.Euler (new Vector3 (0, 45, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			break;
+		case Direction.East:
+			rotation = Quaternion.Euler (new Vector3 (0, 90, 0));
+			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			return;
+		case Direction.SouthEast:
+			rotation = Quaternion.Euler (new Vector3 (0, 135, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation,turnSpeed * Time.deltaTime);
+			return;
+		case Direction.South:
+			rotation = Quaternion.Euler (new Vector3 (0, 180, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			return;
+		case Direction.SouthWest:
+			rotation = Quaternion.Euler (new Vector3 (0, 225, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			return;
+		case Direction.West:
+			rotation = Quaternion.Euler (new Vector3 (0, 270, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			return;
+		case Direction.NorthWest:
+			rotation = Quaternion.Euler (new Vector3 (0, 315, 0));
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+			return;
+		default:
+			break;
+		}
+	}
 
     void UseTheForce()
     {
