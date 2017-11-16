@@ -123,7 +123,8 @@ public class PlayerController : MonoBehaviour
         verticalAxis = "XboxVertical" + playerNum.ToString();
         hammerControl = "XboxX" + playerNum.ToString();
         hookControl = "XboxY" + playerNum.ToString();
-        breakGroundControl = "XboxB" + playerNum.ToString();*/
+        breakGroundControl = "XboxB" + playerNum.ToString();
+        jumpControl = "XboxA" + playerNum.ToString();*/
 
 		horizontalAxis = "Horizontal" + playerNum.ToString();
 		verticalAxis = "Vertical" + playerNum.ToString();
@@ -281,7 +282,8 @@ public class PlayerController : MonoBehaviour
 			else if (Input.GetButtonUp(hookControl) && !hasPlacedHook && _hasHook) // if lets go before the timer gets to placeHOokTimer;
 			{  
 				Debug.Log ("button was let go before timer reached placeHookTimer");
-				StartCoroutine (useHook ());
+//				StartCoroutine (useHook ());
+				useHook ();
 				currVelocity = maxVelocity;
 			} else if (Input.GetKey (KeyCode.B) && isGrounded) {
 				Debug.Log ("Jump Key Pressed");
@@ -355,24 +357,40 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public IEnumerator useHook()
-    {
-        isDisabled = true;
-        canMove = false;
+	public void useHook() {
+//		isDisabled = true;
+//		canMove = false;
 		hasHook = false;
-        UseTheForce();
-        playerRB.velocity = Vector3.zero;
-        // Instantiate hook prefab with a certain velocity
+		UseTheForce();
+		//        playerRB.velocity = Vector3.zero;
+		// Instantiate hook prefab with a certain velocity
 		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
 		hook.GetComponent<HookScript> ()._playerNum = playerNum;
-        hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
+		hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
 
-        yield return new WaitForSeconds(.7f);
-        hookTime = 0;
-        canMove = true;
-        isDisabled = false;
-    }
+//		yield return new WaitForSeconds(.7f);
+		hookTime = 0;
+//		canMove = true;
+//		isDisabled = false;
+	}
+
+//    public IEnumerator useHook()
+//    {
+//        isDisabled = true;
+//        canMove = false;
+//		hasHook = false;
+//        UseTheForce();
+////        playerRB.velocity = Vector3.zero;
+//        // Instantiate hook prefab with a certain velocity
+//		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
+//		hook.GetComponent<HookScript> ()._playerNum = playerNum;
+//        hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
+//
+//        yield return new WaitForSeconds(.7f);
+//        hookTime = 0;
+//        canMove = true;
+//        isDisabled = false;
+//    }
 
     public void hammerSomeone(Vector3 direction)
     {
