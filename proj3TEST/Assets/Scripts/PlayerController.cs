@@ -1,4 +1,4 @@
-﻿	using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -290,7 +290,7 @@ public class PlayerController : MonoBehaviour
 //				StartCoroutine (useHook ());
 				useHook ();
 				currVelocity = maxVelocity;
-			} else if (Input.GetKey (KeyCode.B) && isGrounded) {
+			} else if (Input.GetButtonDown(jumpControl) && isGrounded) {
 				Debug.Log ("Jump Key Pressed");
 				jump ();
 			}
