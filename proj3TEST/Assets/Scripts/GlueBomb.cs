@@ -51,6 +51,7 @@ public class GlueBomb : Item {
             GameObject adhesive = Instantiate(adhesivePrefab);
             adhesive.transform.position = other.transform.position + new Vector3(0, .5f, 0) ;
             adhesive.transform.GetComponent<Adhesive>().tile = other.transform.GetComponent<Tile>();
+            adhesive.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
             Destroy(gameObject);
             //PlayerController p = other.transform.GetComponent<PlayerController>();
             //Interaction(p);

@@ -6,7 +6,7 @@ public class MapLibrary : MonoBehaviour {
     public static MapLibrary mapLib;
 
     // *** CHANGE THIS VALUE EVERY TIME YOU ADD/REMOVE A MAP ***
-    public static int mapCount = 6; 
+    public static int mapCount = 7; 
 
     // *** PLEASE TAKE NOTE: THE MAPS BELOW WILL BE VERTICALLY FLIPPED IN THE GAME ***
     // MAPPING for tile t:
@@ -23,7 +23,7 @@ public class MapLibrary : MonoBehaviour {
     // Only spawn player above tiles that are valid to make game playable.
 
     // *** CHANGE i VALUE IN "new int[i,j,k]" BELOW WHEN ADD/REMOVE A MAP ***
-    public static int[,,] maps25x25 = new int[6, 25, 25]
+    public static int[,,] maps25x25 = new int[7, 25, 25]
     {
         /* Tile Key:
          *  PSP = Player Spawn Point
@@ -32,6 +32,7 @@ public class MapLibrary : MonoBehaviour {
          *  3 = Ice tile, 4 = ... + PSP
          *  5 = Decay tile, 6 = ...
          *  7 = Mine tile, 8 = ...
+         *  9 = Teleport tile, 10 = ???
          */
 
         // Plain Map (Map 1)
@@ -201,13 +202,155 @@ public class MapLibrary : MonoBehaviour {
             {1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1 },
             {1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1 },
             {1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1 }
+        },
+        // Map with teleport tiles (Map 7)
+        {
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 },
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 },
+            {1,1,9,1,1,1,9,1,1,0,0,0,0,0,0,0,1,1,9,1,1,1,9,1,1 },
+            {1,1,1,5,5,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,5,5,1,1,1 },
+            {1,1,1,5,2,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,2,5,1,1,1 },
+            {1,1,1,5,5,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,5,5,1,1,1 },
+            {1,1,9,1,1,1,9,1,1,0,0,0,0,0,0,0,1,1,9,1,1,1,9,1,1 },
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 },
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,5,1,1,1,7,1,1,1,5,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,5,9,1,5,5,5,1,9,5,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,5,7,7,5,9,5,7,7,5,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,5,9,1,5,5,5,1,9,5,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,5,1,1,1,7,1,1,1,5,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 },
+            {1,1,9,1,1,1,9,1,1,0,0,0,0,0,0,0,1,1,9,1,1,1,9,1,1 },
+            {1,1,1,5,5,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,5,5,1,1,1 },
+            {1,1,1,5,2,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,2,5,1,1,1 },
+            {1,1,1,5,5,5,1,1,1,0,0,0,0,0,0,0,1,1,1,5,5,5,1,1,1 },
+            {1,1,9,1,1,1,9,1,1,0,0,0,0,0,0,0,1,1,9,1,1,1,9,1,1 },
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 },
+            {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1 }
         }
-};
+    };
 
+    public static Hashtable colorToTileMap;
+    public static Texture2D[] bitmaps;
+    public static Hashtable teleportTiles;
+
+    // Hashtable to keep track of which maps contain teleport tiles
+    // *******************     NOTE      *******************
+    // Key = above map's index number
+    // Value = Hashtable<int,int>
+    // Value Key: index position (x,z) coords of teleport tile
+    // Value Value: receiver index position 
+    // *** NOTE ***
+    // receiver index position is with respect to the above maps, where the first 
+    // teleport tile scanned from the map from left->right, top->bottom...etc
+
+    void InstantiateTeleportTiles()
+    {
+        teleportTiles = new Hashtable();
+        
+        // Map 7
+        int[] tpConnections = new int[] { -1, 3, 0, -1, 17, 10, 10, 20, 0, 3, -1, 17, 20, 0, 10, 10, 3, -1, 20, 17, -1 };
+        teleportTiles.Add(6, new List<int>(tpConnections));
+ 
+        
+    }
+
+    void InstantiateColorToTileMapping()
+    {
+        colorToTileMap = new Hashtable();
+        //colorToTileMap.Add("000000", 0);
+        colorToTileMap["000000"] = 0;
+        colorToTileMap["009600"] = 1;
+        colorToTileMap["FF0000"] = 2;
+    }
+
+    public static int ColorToTile(Color32 c)
+    {
+        string hex = RGBtoString(c);
+        //print(hex);
+        if (hex == null)
+            return -1;
+        if (!colorToTileMap.ContainsKey(hex))
+            return -1;
+        return (int) colorToTileMap[hex];
+    }
+
+    private void Awake()
+    {
+        if (mapLib == null)
+        {
+            mapLib = this;
+            //Bitmap bmp = new Bitmap(@"C:\Users\TwoTen512\Desktop\cs198\project3 beta\Project3DRW\KingOfTheCubes\KingOfTheCubes\proj3TEST\Assets\Resources\Bitmaps\Map 0.bmp");
+            //Texture2D t = Resources.Load("Bitmaps/Map 0") as Texture2D;
+            //print(">>>" +t.GetPixel(0,0));
+            //bitmaps = Resources.LoadAll<Texture2D>("Bitmaps");
+
+            InstantiateColorToTileMapping();
+            InstantiateTeleportTiles();
+        }
+        
+    }
+
+    public static string RGBtoString(Color32 c)
+    {
+        string s = "";
+        //print(c);
+        //c *= 256;
+        //print(c);
+        int digit = (int)c.r / 16;
+        //print(c);
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+
+        digit = (int)c.r % 16;
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+        //print(">" + s);
+        digit = (int)c.g / 16;
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+        digit = (int)c.g % 16;
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+        //print(">>" + s);
+        digit = (int)c.b / 16;
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+        //print("><<" + s);
+        digit = (int)c.b % 16;
+        if (digit < 10)
+            s += "" + digit;
+        else
+            s += (char)('A' + (digit - 10));
+        //print(">>>" + s);
+        //print('A' + 1);
+        float rVal = c.r;
+        float gVal = c.g;
+        float bVal = c.b;
+
+        byte rByte = (byte)(rVal * 255);
+        byte gByte = (byte)(gVal * 255);
+        byte bByte = (byte)(bVal * 255);
+
+        //return rByte.ToString("X2") + gByte.ToString("X2") + bByte.ToString("X2");
+        return s;
+    }
 
     // Use this for initialization
     void Start () {
-        if (mapLib == null)
-            mapLib = this;
+
 	}
 }

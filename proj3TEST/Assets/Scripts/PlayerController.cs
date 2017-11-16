@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRB;
     CapsuleCollider playerCollider;
 
-
+    // Holds player's useable items
     public List<Item> items;
-
+    bool reset;
 
     //private variables and internal timers
 
@@ -62,10 +62,12 @@ public class PlayerController : MonoBehaviour
 
     // Tile focus
     Tile focusedTile;
-    Color originalColor;
 
     // Player Movement
     float moveDebuff;
+
+    // Player team
+    public int team;
 
     enum Direction
     {
@@ -81,10 +83,15 @@ public class PlayerController : MonoBehaviour
 
     public void Reset()
     {
+        items.Clear();
+        if(focusedTile)
+            focusedTile.Reset();
+        focusedTile = null;
         hammerTime = reloadHammer;
         hookTime = reloadHook;
         isDisabled = false;
         canMove = true;
+        reset = true;
     }
 
     void Awake()
@@ -95,7 +102,7 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         playerLayer = LayerMask.GetMask("Player");
         floorLayer = LayerMask.GetMask("Floor");
-
+        reset = false;
         isDisabled = false;
         hammerTime = 0;
         hookTime = 0;
@@ -108,6 +115,7 @@ public class PlayerController : MonoBehaviour
         focusedTile = null;
         items = new List<Item>();
         moveDebuff = 1;
+        team = playerNum;
         /*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
         verticalAxis = "XboxVertical" + playerNum.ToString();
         hammerControl = "XboxX" + playerNum.ToString();
@@ -147,6 +155,20 @@ public class PlayerController : MonoBehaviour
 	}
     void Update()
     {
+        if (reset)
+        {
+            reset = false;
+            Rigidbody rb = transform.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
+            transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        else
+        {
+            
+            Rigidbody rb = transform.GetComponent<Rigidbody>();
+            rb.constraints = ~RigidbodyConstraints.FreezePositionZ & ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY;
+
+        }
         // Change direction of player to help determine which tile is focused
         UseTheForce();
         floorHit = new RaycastHit();

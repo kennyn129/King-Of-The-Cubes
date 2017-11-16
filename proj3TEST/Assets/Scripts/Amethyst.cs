@@ -15,10 +15,12 @@ public class Amethyst : Item {
         Vector3 dir = p.GetDirection();
         dir = new Vector3(dir.x*2, 1, dir.z*2);
         newShard.transform.GetComponent<AmethystShard>().dir = dir;
+        newShard.transform.GetComponent<AmethystShard>().team = p.team;
         newShard.transform.GetComponent<AmethystShard>().fragmentCount = 1;
 
 
         newShard.transform.GetComponent<Rigidbody>().AddForce(dir*200);
+        newShard.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
         //activeTimeStamp = GameManager.time + timeToLive;
         return UpdateUse(p);
     }

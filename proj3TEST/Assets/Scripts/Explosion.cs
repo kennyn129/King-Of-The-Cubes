@@ -7,16 +7,8 @@ public class Explosion : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        //print(1);
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        //{
-        //    print("HIT");
-        //    print(other.transform.name);
-        //}
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            print("FLOOR");
-            print(other.transform.name);
             Tile t = other.transform.GetComponent<Tile>();
             t.Break();
 

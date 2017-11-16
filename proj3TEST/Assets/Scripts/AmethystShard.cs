@@ -5,7 +5,7 @@ using UnityEngine;
 public class AmethystShard : MonoBehaviour {
     public GameObject amethystShardPrefab;
     public float timeToLive, activeTimeStamp;
-    public int maxShards, minShards, fragmentCount;
+    public int maxShards, minShards, fragmentCount, team;
     public Vector3 dir;
 	// Use this for initialization
 	void Start () {
@@ -47,7 +47,9 @@ public class AmethystShard : MonoBehaviour {
                     z = Random.Range(-1, 1);
                     newDir += new Vector3(x, .5f, z);
                     shard.transform.GetComponent<AmethystShard>().dir = newDir;
+                    shard.transform.GetComponent<AmethystShard>().team = team;
                     shard.transform.GetComponent<Rigidbody>().AddForce(newDir*150);
+                    shard.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
                 }
                 //Tile t = other.transform.GetComponent<Tile>();
                 //t.Break();
@@ -55,7 +57,8 @@ public class AmethystShard : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
+            other.transform.GetComponent<PlayerController>().team != team)
         {
             print("HIT");
             
@@ -67,7 +70,8 @@ public class AmethystShard : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
+            other.transform.GetComponent<PlayerController>().team != team)
         {
             print("HIT");
             

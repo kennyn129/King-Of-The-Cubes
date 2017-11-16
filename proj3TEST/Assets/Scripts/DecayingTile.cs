@@ -16,10 +16,17 @@ public class DecayingTile : Tile {
        // print("TOUCHING");
         if (active && !triggered && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            print("deca");
             triggered = true;
             decayTimeStamp = GameManager.time + decayTime;
         }
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        triggered = false;
+        decayTimeStamp = 0;
+        waitToResetOpacity = 0;
     }
 
     public override void Break()

@@ -43,6 +43,8 @@ public class Dynamite : Item {
                 //{
                 GameObject explosion = Instantiate(explosionPrefab);
                 explosion.transform.position = transform.position;
+                explosion.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
+
                 Destroy(gameObject);
                 //}
             }
@@ -56,6 +58,7 @@ public class Dynamite : Item {
         transform.GetComponent<MeshRenderer>().enabled = true;
         transform.position = p.transform.position;
         activeTimeStamp = GameManager.time + timeBeforeExplosion;
+        transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
         return UpdateUse(p);
     }
 }

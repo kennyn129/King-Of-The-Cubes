@@ -6,19 +6,24 @@ public class MineTile : Tile {
     public GameObject explosionPrefab;
     private void OnCollisionExit(Collision collision)
     {
-        print(collision.transform.name);
-        int i = Random.Range(0, 100);
-        print(i);
-        if (i <= 20)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            print("explode");
-            Break();
+            print(collision.transform.name);
+            int i = Random.Range(0, 100);
+            print(i);
+            if (i <= 20)
+            {
+                print("explode");
+                Break();
+            }
         }
     }
 
     public void Explode()
     {
-        Instantiate(explosionPrefab).transform.position = transform.position;
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = transform.position;
+        explosion.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
     }
 
     public override void Break()

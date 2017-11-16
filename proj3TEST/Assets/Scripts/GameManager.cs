@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager gameManager;
     public GameObject[] itemPrefabs;
+    public GameObject inGameParticlesAndEffects;
+    public GameObject mapHolder;
     public Item[] items;
     public static float time;
     public GameObject[] players;
@@ -19,6 +22,9 @@ public class GameManager : MonoBehaviour {
 	void Start () {
         if (gameManager == null)
             gameManager = this;
+        
+        inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
+        mapHolder = GameObject.Find("Map Holder");
         time = 0;
         playerCount = 4;
         playersInGame = 4;
@@ -26,12 +32,24 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < playerCount; i++)
             players[i] = GameObject.FindGameObjectWithTag("Player" + (i + 1));
         //InstantiateItems();
-        for(int i = 0; i < MapLibrary.mapCount; i++)
+
+        selectedMap = 0;
+        for (int i = 0; i < MapLibrary.mapCount; i++)
         {
             Map m = Instantiate(map);
             m.transform.name = "Map " + (i + 1);
             m.transform.position += new Vector3(i * 50, 0, 0);
+            //m.gameObject.SetActive(i == selectedMap);
+            m.transform.SetParent(mapHolder.transform);
         }
+        /*
+        for( int i = 0; i < MapLibrary.bitmaps.Length; i++)
+        {
+            Map m = Instantiate(map);
+            m.transform.name = "Map " + (i + 1);
+            m.transform.position += new Vector3(i * 50, 0, 0);
+            m.transform.SetParent(mapHolder.transform);
+        }*/
 	}
 	
 	// Update is called once per frame
@@ -39,8 +57,17 @@ public class GameManager : MonoBehaviour {
         time += .1f;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
-            ResetGame();
+            if (selectedMap < mapHolder.transform.childCount)
+            {
+                selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
+                for (int i = 0; i < mapHolder.transform.childCount; i++)
+                    mapHolder.transform.GetChild(i).gameObject.SetActive(i == selectedMap);
+                //ResetGame();
+                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
+                
+                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(true);
+                ResetGame();
+            }
             //SceneManager.LoadScene("main");
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -67,7 +94,13 @@ public class GameManager : MonoBehaviour {
     void ResetGame()
     {
         time = 0;
-        GameObject.Find("Map "+ (selectedMap+1)).transform.GetComponent<Map>().Reset();
+
+        foreach (Transform child in inGameParticlesAndEffects.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        if(selectedMap < mapHolder.transform.childCount)
+            mapHolder.transform.GetChild(selectedMap).transform.GetComponent<Map>().Reset();
         playersInGame = playerCount;
         for (int i = 0; i < 4; i++)
         {

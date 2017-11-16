@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour {
     protected BoxCollider c;
     public float respawnTimeStamp, respawnTime, floorSize, suddenDeathTimeStamp;
     public bool isBreakable, active;
-    public int hp;
+    public int hp, tileID;
     public Color originalColor, currentColor;
 
     // Used for changing color of tiles upon focus
@@ -28,7 +28,7 @@ public class Tile : MonoBehaviour {
         Reset();
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         transform.GetComponent<Renderer>().material.color = originalColor;
         currentColor = originalColor;
@@ -78,6 +78,7 @@ public class Tile : MonoBehaviour {
     public virtual void Break()
     {
         SetRespawnTime();
+        active = false;
     }
 	
 	// Update is called once per frame
