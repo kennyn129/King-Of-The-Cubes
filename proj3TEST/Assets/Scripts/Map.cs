@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour {
+public class Map : MonoBehaviour
+{
     //    public static Map mapManager;
     static int mapCt = 0;
     GameObject tilesHolder;
@@ -13,18 +14,23 @@ public class Map : MonoBehaviour {
     public GameObject[] tilePrefabs;
     public GameObject[] itemDropPrefabs;
     public int dim, mapID;
+    public float spawnItemTimeStamp, spawnItemTime;
+    public bool canSpawnItems;
 
-    
 
-    void Start () {
-        
+
+    void Start()
+    {
+
 
         mapID = mapCt;
         mapCt++;
-
+        canSpawnItems = true;
+        spawnItemTime = 20f;
+        spawnItemTimeStamp = GameManager.time + spawnItemTime;
 
         //Texture2D bitmap = MapLibrary.bitmaps[mapID];
-        
+
         int playerSpawn = 0;
         playerSpawnPoints = new GameObject[4];
         for (int i = 0; i < 4; i++)
@@ -32,8 +38,8 @@ public class Map : MonoBehaviour {
 
         tilesHolder = transform.Find("Tiles Holder").gameObject;
         //itemDropHolder = transform.Find("ItemDrops Holder").gameObject;
-//        if (!mapManager)
-//            mapManager = this;
+        //        if (!mapManager)
+        //            mapManager = this;
         dim = 25;
         //mapLayout = new int[dim * dim];
         //for (int i = 0; i < dim * dim; i++)
@@ -85,8 +91,8 @@ public class Map : MonoBehaviour {
                     tpTiles.Add(tile);
                 }
             }*/
-                //print(bitmap.GetPixel(j, i) * 255);
-        
+        //print(bitmap.GetPixel(j, i) * 255);
+
         for (int i = 0; i < dim; i++)
         {
             for (int j = 0; j < dim; j++)
@@ -97,7 +103,7 @@ public class Map : MonoBehaviour {
                 else
                     k = 1;
                 k = 0;
-                k = MapLibrary.maps25x25[mapID,i,j];
+                k = MapLibrary.maps25x25[mapID, i, j];
                 if (k % 2 == 0 && k > 0)
                 {
                     if (playerSpawn < 4)
@@ -106,21 +112,22 @@ public class Map : MonoBehaviour {
                         playerSpawn++;
                     }
                     k /= 2;
-                }else if (k > 2)
+                }
+                else if (k > 2)
                 {
                     k = (k + 1) / 2;
                 }
                 GameObject tile = Instantiate(tilePrefabs[k]);
                 tile.transform.GetComponent<Tile>().tileID = (i * dim) + j;
                 tile.transform.SetParent(tilesHolder.transform);
-                tile.transform.position = transform.position + new Vector3(j*1.5f, 0, i * 1.5f);
+                tile.transform.position = transform.position + new Vector3(j * 1.5f, 0, i * 1.5f);
                 if (k == 5)
                 {
                     tpTiles.Add(tile);
                 }
             }
         }
-        List<int> tpTileMap = (List<int>) MapLibrary.teleportTiles[mapID];
+        List<int> tpTileMap = (List<int>)MapLibrary.teleportTiles[mapID];
         if (tpTileMap != null)
         {
             //print("OKAOSK");
@@ -140,7 +147,7 @@ public class Map : MonoBehaviour {
         //Reset();
         //SetSuddenDeathTimeStamps3(20f);
         //SetSuddenDeathTimeStamps2(0, 30f);
-//        SetSuddenDeathTimeStamps1(0, 30f);
+        //        SetSuddenDeathTimeStamps1(0, 30f);
         //SetSuddenDeathTimeStamps(0, 10f);
     }
 
@@ -260,7 +267,7 @@ public class Map : MonoBehaviour {
     private void SetSuddenDeathTimeStamps3(float deathTime)
     {
         int r = dim / 2, c = r;
-        if(dim % 2 == 0)
+        if (dim % 2 == 0)
         {
             r--;
             c--;
@@ -284,22 +291,23 @@ public class Map : MonoBehaviour {
             deathTime += timeDiff;
             c += dir;
         }
-        for(o = 0, c -= dir, r += dir; o < offset; o++)
+        for (o = 0, c -= dir, r += dir; o < offset; o++)
         {
             tilesHolder.transform.GetChild(r * dim + c).GetComponent<Tile>().suddenDeathTimeStamp = deathTime;
             deathTime += timeDiff;
             r += dir;
         }
         r -= dir;
-        SetSuddenDeathTimeStamp3Helper(r, c - dir, offset+1, deathTime, dir * -1);
+        SetSuddenDeathTimeStamp3Helper(r, c - dir, offset + 1, deathTime, dir * -1);
 
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
         {
             SpawnItem();
+            spawnItemTimeStamp = GameManager.time + spawnItemTime;
         }
         //print(tilesHolder.transform.childCount);
     }
