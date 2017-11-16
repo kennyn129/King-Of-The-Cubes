@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     LayerMask playerLayer;
     LayerMask floorLayer;
     RaycastHit floorHit;
+	Transform hitOrigin;
 
     // Input Control Strings
     string horizontalAxis;
@@ -102,6 +103,8 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         playerLayer = LayerMask.GetMask("Player");
         floorLayer = LayerMask.GetMask("Floor");
+		hitOrigin = transform.GetChild (1);
+		hitOrigin.localPosition = new Vector3 (0, 1.5f, 0);
         reset = false;
         isDisabled = false;
         hammerTime = 0;
@@ -144,7 +147,7 @@ public class PlayerController : MonoBehaviour
     }
 
 	void isGroundedCheck () {
-		if (Physics.Raycast (playerRB.position, -Vector3.up, .2f, floorLayer)){
+		if (Physics.Raycast (hitOrigin.position, -Vector3.up, 1.65f, floorLayer)){
 //			|| Physics.Raycast (transform.position + new Vector3(.01f, 0 ,0), -Vector3.up, 1f, floorLayer)
 //			|| Physics.Raycast (transform.position + new Vector3(-.01f,0, .01f).normalized, -Vector3.up, 1f, floorLayer)
 //			|| Physics.Raycast (f + new Vector3(-.01f, 0, -.01f).normalized, -Vector3.up, 1f, floorLayer)) {
@@ -173,7 +176,7 @@ public class PlayerController : MonoBehaviour
         UseTheForce();
         floorHit = new RaycastHit();
         // If tile is in range, highlight
-        if (Physics.Raycast(playerRB.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
+		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
         {
             Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
             Transform t = floorHit.collider.gameObject.transform;
@@ -302,7 +305,7 @@ public class PlayerController : MonoBehaviour
 
 	void placeHook() {
 		Debug.Log ("Just Placed Hook");
-		GameObject hookItem = (GameObject)Instantiate (hookItemPrefab, playerRB.position, transform.rotation);
+		GameObject hookItem = (GameObject)Instantiate (hookItemPrefab, hitOrigin.position, transform.rotation);
 		hookItem.GetComponent<HookItem> ().playerNum = playerNum;
 		_hasHook = false;
 	}
@@ -319,7 +322,7 @@ public class PlayerController : MonoBehaviour
     {
         hammerTime = 0;
         UseTheForce();
-        Collider[] colls = Physics.OverlapSphere(playerRB.position + currForceDirection.normalized * 1.5f, 1f, playerLayer);
+		Collider[] colls = Physics.OverlapSphere(hitOrigin.position + currForceDirection.normalized * 1.5f, 1f, playerLayer);
         Debug.Log(colls);
         foreach (Collider x in colls)
         {
@@ -341,7 +344,7 @@ public class PlayerController : MonoBehaviour
         hammerTime = 0;
         UseTheForce();
         floorHit = new RaycastHit();
-        if (Physics.Raycast(playerRB.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
+		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
         {
             Debug.Log(floorHit.collider);
             Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
@@ -361,7 +364,7 @@ public class PlayerController : MonoBehaviour
         UseTheForce();
         playerRB.velocity = Vector3.zero;
         // Instantiate hook prefab with a certain velocity
-		GameObject hook = (GameObject)Instantiate(hookPrefab, playerRB.position, transform.rotation);
+		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
 		hook.GetComponent<HookScript> ()._playerNum = playerNum;
         hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
 
@@ -424,24 +427,24 @@ public class PlayerController : MonoBehaviour
 		} else {
 			anim.SetBool ("Running", false);
 		}
-
-		if (hor > 0 && ver > 0) {
-			currDirection = Direction.NorthEast;
-		} else if (hor > 0 && ver == 0) {
-			currDirection = Direction.East;
-		} else if (hor > 0 && ver < 0) {
-			currDirection = Direction.SouthEast;
-		} else if (hor == 0 && ver < 0) {
-			currDirection = Direction.South;
-		} else if (hor < 0 && ver < 0) {
-			currDirection = Direction.SouthWest;
-		} else if (hor < 0 && ver == 0) {
-			currDirection = Direction.West;
-		} else if (hor < 0 && ver > 0) {
-			currDirection = Direction.NorthWest;
-		} else if (hor == 0 && ver > 0) {
-			currDirection = Direction.North;
-		}   
+//
+//		if (hor > 0 && ver > 0) {
+//			currDirection = Direction.NorthEast;
+//		} else if (hor > 0 && ver == 0) {
+//			currDirection = Direction.East;
+//		} else if (hor > 0 && ver < 0) {
+//			currDirection = Direction.SouthEast;
+//		} else if (hor == 0 && ver < 0) {
+//			currDirection = Direction.South;
+//		} else if (hor < 0 && ver < 0) {
+//			currDirection = Direction.SouthWest;
+//		} else if (hor < 0 && ver == 0) {
+//			currDirection = Direction.West;
+//		} else if (hor < 0 && ver > 0) {
+//			currDirection = Direction.NorthWest;
+//		} else if (hor == 0 && ver > 0) {
+//			currDirection = Direction.North;
+//		}   
     }
 
 	void rotate(float hor, float ver) {
