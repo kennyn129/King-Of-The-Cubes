@@ -5,265 +5,267 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    // play testing variables
-    public float maxVelocity;
+	// play testing variables
+	public float maxVelocity;
 	public float slowVelocity;
 	public float turnSpeed;
 	public float jumpForce;
-    public int playerNum;
-    public float reloadHammer;
-    public float reloadHook;
+	public int playerNum;
+	public float reloadHammer;
+	public float reloadHook;
 	public float timeToPlaceHook;
-    public float hookDistance;
-    public float hookSpeed;
-    public float healthScalar;
-    public float forceY;
+	public float hookDistance;
+	public float hookSpeed;
+	public float healthScalar;
+	public float forceY;
 
-    //Unity Components
-    public GameObject hookPrefab;
+	//Unity Components
+	public GameObject hookPrefab;
 	public GameObject hookItemPrefab;
 
-    Animator anim;
-    GameObject player;
-    Rigidbody playerRB;
-    CapsuleCollider playerCollider;
+	Animator anim;
+	GameObject player;
+	Rigidbody playerRB;
+	CapsuleCollider playerCollider;
 
-    // Holds player's useable items
-    public List<Item> items;
-    bool reset;
+	// Holds player's useable items
+	public List<Item> items;
+	bool reset;
 
-    //private variables and internal timers
+	//private variables and internal timers
 
-    bool canMove;
-    bool isDisabled;
-    bool isGrounded;
+	bool canMove;
+	bool isDisabled;
+	bool isGrounded;
 	bool _hasHook;
 	bool hasPlacedHook;
 	float currVelocity;
-    float hitDistance;
-    float moveHorizontal;
-    float moveVertical;
-    float hammerTime;
-    float hookTime;
+	float hitDistance;
+	float moveHorizontal;
+	float moveVertical;
+	float hammerTime;
+	float hookTime;
 	float placeHookTime;
-    Vector3 movement;
-    Direction currDirection;
-    Vector3 currForceDirection;
-    LayerMask playerLayer;
-    LayerMask floorLayer;
-    RaycastHit floorHit;
+	Vector3 movement;
+	Direction currDirection;
+	Vector3 currForceDirection;
+	LayerMask playerLayer;
+	LayerMask floorLayer;
+	RaycastHit floorHit;
 	Transform hitOrigin;
 
-    // Input Control Strings
-    string horizontalAxis;
-    string verticalAxis;
-    string hammerControl;
-    string hookControl;
-    string breakGroundControl;
+	// Input Control Strings
+	string horizontalAxis;
+	string verticalAxis;
+	string hammerControl;
+	string hookControl;
+	string breakGroundControl;
 	string jumpControl;
 	string itemControl;
 
-    // Tile focus
-    Tile focusedTile;
+	// Tile focus
+	Tile focusedTile;
 
-    // Player Movement
-    float moveDebuff;
+	// Player Movement
+	float moveDebuff;
 
-    // Player team
-    public int team;
+	// Player team
+	public int team;
 
-    enum Direction
-    {
-        North,
-        South,
-        East,
-        West,
-        NorthWest,
-        SouthWest,
-        NorthEast,
-        SouthEast,
-    }
+	enum Direction
+	{
+		North,
+		South,
+		East,
+		West,
+		NorthWest,
+		SouthWest,
+		NorthEast,
+		SouthEast,
+	}
 
-    public void Reset()
-    {
-        items.Clear();
-        if(focusedTile)
-            focusedTile.Reset();
-        focusedTile = null;
-        hammerTime = reloadHammer;
-        hookTime = reloadHook;
-        isDisabled = false;
-        canMove = true;
-        reset = true;
-    }
+	public void Reset()
+	{
+		items.Clear();
+		if(focusedTile)
+			focusedTile.Reset();
+		focusedTile = null;
+		hammerTime = reloadHammer;
+		hookTime = reloadHook;
+		isDisabled = false;
+		canMove = true;
+		reset = true;
+		hasHook = true;
+	}
 
-    void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player" + playerNum.ToString());
-        playerRB = player.GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
-        playerCollider = GetComponent<CapsuleCollider>();
-        playerLayer = LayerMask.GetMask("Player");
-        floorLayer = LayerMask.GetMask("Floor");
+	void Awake()
+	{
+		player = GameObject.FindGameObjectWithTag("Player" + playerNum.ToString());
+		playerRB = player.GetComponent<Rigidbody>();
+		anim = GetComponent<Animator>();
+		playerCollider = GetComponent<CapsuleCollider>();
+		playerLayer = LayerMask.GetMask("Player");
+		floorLayer = LayerMask.GetMask("Floor");
 		hitOrigin = transform.GetChild (1);
 		hitOrigin.localPosition = new Vector3 (0, 1.5f, 0);
-        reset = false;
-        isDisabled = false;
-        hammerTime = 0;
-        hookTime = 0;
+		reset = false;
+		isDisabled = false;
+		hammerTime = 0;
+		hookTime = 0;
 		_hasHook = true;
 		hasPlacedHook = false;
 		placeHookTime = 0;
-        canMove = true;
+		canMove = true;
 		currVelocity = maxVelocity;
 
-        focusedTile = null;
-        items = new List<Item>();
-        moveDebuff = 1;
-        team = playerNum;
-        /*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
-        verticalAxis = "XboxVertical" + playerNum.ToString();
-        hammerControl = "XboxX" + playerNum.ToString();
-        hookControl = "XboxY" + playerNum.ToString();
-        breakGroundControl = "XboxB" + playerNum.ToString();
-        jumpControl = "XboxA" + playerNum.ToString();
-        itemControl = "XboxRB" + playerNum.ToString();*/
+		focusedTile = null;
+		items = new List<Item>();
+		moveDebuff = 1;
+		team = playerNum;
+		horizontalAxis = "XboxHorizontal" + playerNum.ToString();
+		verticalAxis = "XboxVertical" + playerNum.ToString();
+		hammerControl = "XboxX" + playerNum.ToString();
+		hookControl = "XboxY" + playerNum.ToString();
+		breakGroundControl = "XboxB" + playerNum.ToString();
+		jumpControl = "XboxA" + playerNum.ToString();
+		itemControl = "XboxRB" + playerNum.ToString();
 
-		horizontalAxis = "Horizontal" + playerNum.ToString();
+		/*horizontalAxis = "Horizontal" + playerNum.ToString();
 		verticalAxis = "Vertical" + playerNum.ToString();
 		hammerControl = "Hammer" + playerNum.ToString();
 		hookControl = "Hook" + playerNum.ToString();
 		breakGroundControl = "BreakGround" + playerNum.ToString();
 		jumpControl = "Jump" + playerNum.ToString ();
-		itemControl = "item" + playerNum.ToString ();
+		itemControl = "item" + playerNum.ToString ();*/
 
-        //items = new Item[2];
+		//items = new Item[2];
 
 
-    }
-    
-    public Vector3 GetDirection()
-    {
-        return currForceDirection.normalized;
-    }
+	}
 
-    public void SetMoveDebuff(float f)
-    {
-        moveDebuff = f;
-    }
+	public Vector3 GetDirection()
+	{
+		return currForceDirection.normalized;
+	}
+
+	public void SetMoveDebuff(float f)
+	{
+		moveDebuff = f;
+	}
 
 	void isGroundedCheck () {
-		if (Physics.Raycast (hitOrigin.position, -Vector3.up, 1.65f, floorLayer)){
-//			|| Physics.Raycast (transform.position + new Vector3(.01f, 0 ,0), -Vector3.up, 1f, floorLayer)
-//			|| Physics.Raycast (transform.position + new Vector3(-.01f,0, .01f).normalized, -Vector3.up, 1f, floorLayer)
-//			|| Physics.Raycast (f + new Vector3(-.01f, 0, -.01f).normalized, -Vector3.up, 1f, floorLayer)) {
+		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.65f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,05f), -Vector3.up, 1.65f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.65f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.65f, floorLayer)) {
 			isGrounded = true;
 		} else {
 			isGrounded = false;
 		}
 	}
-    void Update()
-    {
-        if (reset)
-        {
-            reset = false;
-            Rigidbody rb = transform.GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
-            transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        }
-        else
-        {
-            
-            Rigidbody rb = transform.GetComponent<Rigidbody>();
-            rb.constraints = ~RigidbodyConstraints.FreezePositionZ & ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY;
+	void Update()
+	{
+		if (reset)
+		{
+			reset = false;
+			Rigidbody rb = transform.GetComponent<Rigidbody>();
+			rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
+			transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		}
+		else
+		{
 
-        }
-        // Change direction of player to help determine which tile is focused
-        UseTheForce();
-        floorHit = new RaycastHit();
-        // If tile is in range, highlight
+			Rigidbody rb = transform.GetComponent<Rigidbody>();
+			rb.constraints = ~RigidbodyConstraints.FreezePositionZ & ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY;
+
+		}
+		// Change direction of player to help determine which tile is focused
+		UseTheForce();
+		floorHit = new RaycastHit();
+		// If tile is in range, highlight
 		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
-        {
-            Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
-            Transform t = floorHit.collider.gameObject.transform;
-            if (tileObj != null)
-            {
-                if (t.gameObject != focusedTile) {
-                    if (focusedTile != null)
-                        focusedTile.FocusOnTile(playerNum-1,false);
+		{
+			Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
+			Transform t = floorHit.collider.gameObject.transform;
+			if (tileObj != null)
+			{
+				if (t.gameObject != focusedTile) {
+					if (focusedTile != null)
+						focusedTile.FocusOnTile(playerNum-1,false);
 
-                    focusedTile = tileObj;
-                    focusedTile.FocusOnTile(playerNum-1,true);
+					focusedTile = tileObj;
+					focusedTile.FocusOnTile(playerNum-1,true);
 
-                }
-            }
-        }
-        // Else un-highlight
-        else
-        {
-            if (focusedTile != null)
-            {
-                focusedTile.FocusOnTile(playerNum-1, false);
-                focusedTile = null;
-            }
-        }
+				}
+			}
+		}
+		// Else un-highlight
+		else
+		{
+			if (focusedTile != null)
+			{
+				focusedTile.FocusOnTile(playerNum-1, false);
+				focusedTile = null;
+			}
+		}
 
 
 
-        if (transform.position.y <= -30)
-        {
-            GameManager.gameManager.playersInGame--;
-            gameObject.SetActive(false);
-        }
+		if (transform.position.y <= -30)
+		{
+			GameManager.gameManager.playersInGame--;
+			gameObject.SetActive(false);
+		}
 
-        hammerTime += Time.deltaTime;
-        hookTime += Time.deltaTime;
+		hammerTime += Time.deltaTime;
+		hookTime += Time.deltaTime;
 
-        isGroundedCheck();
-        /*moveHorizontal = Input.GetAxis(horizontalAxis);
+		isGroundedCheck();
+		/*moveHorizontal = Input.GetAxis(horizontalAxis);
         moveVertical = Input.GetAxis(verticalAxis);*/
 
 		moveHorizontal = Input.GetAxisRaw(horizontalAxis);
 		moveVertical = Input.GetAxisRaw(verticalAxis);
-        if (isDisabled)
-        {
-            return;
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.O))
-            {
-                Color color = new Color();
-                color.r = 255;
-                //Assign the changed color to the material.
-                transform.GetComponent<Renderer>().material.color = color;
-                //transform.GetComponent<Renderer>().Material.Color = color;
-            }
+		if (isDisabled)
+		{
+			return;
+		}
+		else
+		{
+			if (Input.GetKey(KeyCode.O))
+			{
+				Color color = new Color();
+				color.r = 255;
+				//Assign the changed color to the reset.
+				transform.GetComponent<Renderer>().material.color = color;
+				//transform.GetComponent<Renderer>().Material.Color = color;
+			}
 
-            if (Input.GetKeyDown(KeyCode.P) && playerNum == 1)
-            {
-                if(items.Count > 0)
-                if (items[0] != null)
-                {
-                        if (items[0].Use(this) == 0)
-                        {
-                            print("DONE USING");
-                        }
-                }
-                else
-                {
-                    print("no item");
-                }
-            }
+			if (Input.GetButtonDown(itemControl))
+			{
+				Debug.Log("itemControl Button Pressed");
+				if(items.Count > 0)
+				if (items[0] != null)
+				{
+					if (items[0].Use(this) == 0)
+					{
+						print("DONE USING");
+					}
+				}
+				else
+				{
+					print("no item");
+				}
+			}
 
-            if (Input.GetButtonDown(hammerControl) && hammerTime >= reloadHammer)
-            {
-                useHammer();
-            }
-            else if (Input.GetButtonDown(breakGroundControl) && hammerTime >= reloadHammer)
-            {
-                breakGround();
-            }
+			if (Input.GetButtonDown(hammerControl) && hammerTime >= reloadHammer)
+			{
+				useHammer();
+			}
+			else if (Input.GetButtonDown(breakGroundControl) && hammerTime >= reloadHammer)
+			{
+				breakGround();
+			}
 			else if (placeHookTime >= timeToPlaceHook && !hasPlacedHook && _hasHook) //if button has held down long enough and isn't placed but has hook
 			{
 				Debug.Log ("Calling placeHOok();");
@@ -280,14 +282,14 @@ public class PlayerController : MonoBehaviour
 			}
 			else if (Input.GetButton(hookControl) && !hasPlacedHook && _hasHook) //if currently charging 
 			{
-//				Debug.Log ("currently Charging hook");
+				//				Debug.Log ("currently Charging hook");
 				placeHookTime += Time.deltaTime;
 				currVelocity = slowVelocity;
 			}
 			else if (Input.GetButtonUp(hookControl) && !hasPlacedHook && _hasHook) // if lets go before the timer gets to placeHOokTimer;
 			{  
 				Debug.Log ("button was let go before timer reached placeHookTimer");
-//				StartCoroutine (useHook ());
+				//				StartCoroutine (useHook ());
 				useHook ();
 				currVelocity = maxVelocity;
 			} else if (Input.GetButtonDown(jumpControl) && isGrounded) {
@@ -303,9 +305,9 @@ public class PlayerController : MonoBehaviour
 			else if(!isGrounded) {
 				rotateAir (moveHorizontal, moveVertical);
 			}
-        }
+		}
 
-    }
+	}
 
 	void jump() {
 		playerRB.AddForce (new Vector3 (0, jumpForce, 0));
@@ -326,46 +328,46 @@ public class PlayerController : MonoBehaviour
 	}
 
 
-    void useHammer()
-    {
-        hammerTime = 0;
-        UseTheForce();
+	void useHammer()
+	{
+		hammerTime = 0;
+		UseTheForce();
 		Collider[] colls = Physics.OverlapSphere(hitOrigin.position + currForceDirection.normalized * 1.5f, 1f, playerLayer);
-        Debug.Log(colls);
-        foreach (Collider x in colls)
-        {
-            PlayerController playerScript = x.gameObject.GetComponent<PlayerController>();
-            if (playerScript == null)
-            {
-                continue;
-            }
-            if (playerScript.playerNum == playerNum)
-            {
-                continue;
-            }
-            playerScript.hammerSomeone(currForceDirection);
-        }
-    }
+		Debug.Log(colls);
+		foreach (Collider x in colls)
+		{
+			PlayerController playerScript = x.gameObject.GetComponent<PlayerController>();
+			if (playerScript == null)
+			{
+				continue;
+			}
+			if (playerScript.playerNum == playerNum)
+			{
+				continue;
+			}
+			playerScript.hammerSomeone(currForceDirection);
+		}
+	}
 
-    void breakGround()
-    {
-        hammerTime = 0;
-        UseTheForce();
-        floorHit = new RaycastHit();
+	void breakGround()
+	{
+		hammerTime = 0;
+		UseTheForce();
+		floorHit = new RaycastHit();
 		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
-        {
-            Debug.Log(floorHit.collider);
-            Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
-            if (tileObj != null)
-            {
-                tileObj.Break();
-            }
-        }
-    }
+		{
+			Debug.Log(floorHit.collider);
+			Tile tileObj = floorHit.collider.gameObject.GetComponent<Tile>();
+			if (tileObj != null)
+			{
+				tileObj.Break();
+			}
+		}
+	}
 
 	public void useHook() {
-//		isDisabled = true;
-//		canMove = false;
+		//		isDisabled = true;
+		//		canMove = false;
 		hasHook = false;
 		UseTheForce();
 		//        playerRB.velocity = Vector3.zero;
@@ -374,78 +376,79 @@ public class PlayerController : MonoBehaviour
 		hook.GetComponent<HookScript> ()._playerNum = playerNum;
 		hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
 
-//		yield return new WaitForSeconds(.7f);
+		//		yield return new WaitForSeconds(.7f);
 		hookTime = 0;
-//		canMove = true;
-//		isDisabled = false;
+		//		canMove = true;
+		//		isDisabled = false;
 	}
 
-//    public IEnumerator useHook()
-//    {
-//        isDisabled = true;
-//        canMove = false;
-//		hasHook = false;
-//        UseTheForce();
-////        playerRB.velocity = Vector3.zero;
-//        // Instantiate hook prefab with a certain velocity
-//		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
-//		hook.GetComponent<HookScript> ()._playerNum = playerNum;
-//        hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
-//
-//        yield return new WaitForSeconds(.7f);
-//        hookTime = 0;
-//        canMove = true;
-//        isDisabled = false;
-//    }
+	//    public IEnumerator useHook()
+	//    {
+	//        isDisabled = true;
+	//        canMove = false;
+	//		hasHook = false;
+	//        UseTheForce();
+	////        playerRB.velocity = Vector3.zero;
+	//        // Instantiate hook prefab with a certain velocity
+	//		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
+	//		hook.GetComponent<HookScript> ()._playerNum = playerNum;
+	//        hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
+	//
+	//        yield return new WaitForSeconds(.7f);
+	//        hookTime = 0;
+	//        canMove = true;
+	//        isDisabled = false;
+	//    }
 
-    public void hammerSomeone(Vector3 direction)
-    {
-        StartCoroutine(getHammered(direction));
-    }
-    public void hookSomeone(Vector3 direction)
-    {
-        StartCoroutine(getHooked(direction));
-    }
+	public void hammerSomeone(Vector3 direction)
+	{
+		StartCoroutine(getHammered(direction));
+	}
+	public void hookSomeone(Vector3 direction)
+	{
+		StartCoroutine(getHooked(direction));
+	}
 
-    public IEnumerator getHammered(Vector3 direction)
-    {
-        isDisabled = true;
-        canMove = false;
-        playerRB.velocity = Vector3.zero;
-        direction = direction.normalized;
-        Vector3 forceVector = new Vector3(direction.x * healthScalar, forceY, direction.z * healthScalar);
-        Debug.Log(forceVector);
+	public IEnumerator getHammered(Vector3 direction)
+	{
+		isDisabled = true;
+		canMove = false;
+		playerRB.velocity = Vector3.zero;
+		direction = direction.normalized;
+		Vector3 forceVector = new Vector3(direction.x * healthScalar, forceY, direction.z * healthScalar);
+		Debug.Log(forceVector);
 
-        healthScalar += 5f;
+		healthScalar += 5f;
 
-        playerRB.AddForce(forceVector);
-        yield return new WaitForSeconds(1);
-        isDisabled = false;
-        canMove = true;
-    }
+		playerRB.AddForce(forceVector);
+		yield return new WaitForSeconds(1);
+		isDisabled = false;
+		canMove = true;
+	}
 
-    public IEnumerator getHooked(Vector3 direction)
-    {
-        Debug.Log("In GetHooked");
-        Debug.Log(direction);
-        isDisabled = true;
-        Vector3 forceVector = direction * 500;
+	public IEnumerator getHooked(Vector3 direction)
+	{
+		Debug.Log("In GetHooked");
+		Debug.Log(direction);
+		isDisabled = true;
+		Vector3 forceVector = direction * 500;
 
-        playerRB.AddForce(forceVector);
-        yield return new WaitForSeconds(1);
-        isDisabled = false;
-    }
+		playerRB.AddForce(forceVector);
+		yield return new WaitForSeconds(1);
+		isDisabled = false;
+	}
 
 
 
-    void move(float hor, float ver)
-    {
+	void move(float hor, float ver)
+	{
 
-        //add movement to player
-        movement = new Vector3(hor, 0f, ver);
-		movement = movement.normalized * currVelocity * moveDebuff;
+		//add movement to player
+		movement = new Vector3(hor, 0f, ver);
+		//movement = movement.normalized * currVelocity * moveDebuff;
+		movement = movement * currVelocity * moveDebuff;
 
-        playerRB.velocity = movement;
+		playerRB.velocity = movement;
 		if (hor != 0 || ver != 0) {
 			anim.SetBool ("Running", true);
 		} else {
@@ -469,7 +472,7 @@ public class PlayerController : MonoBehaviour
 		} else if (hor == 0 && ver > 0) {
 			currDirection = Direction.North;
 		}   
-    }
+	}
 
 	void rotateGround(Direction dir) {
 		Quaternion rotation;
@@ -555,43 +558,41 @@ public class PlayerController : MonoBehaviour
 
 	}
 
-    void UseTheForce()
-    {
-        switch (currDirection)
-        {
-            case Direction.North:
-                currForceDirection = new Vector3(0, 0, 1);
-                return;
-            case Direction.NorthEast:
-                currForceDirection = new Vector3(1, 0, 1);
-                return;
-            case Direction.East:
-                currForceDirection = new Vector3(1, 0, 0);
-                return;
-            case Direction.SouthEast:
-                currForceDirection = new Vector3(1, 0, -1);
-                return;
-            case Direction.South:
-                currForceDirection = new Vector3(0, 0, -1);
-                return;
-            case Direction.SouthWest:
-                currForceDirection = new Vector3(-1, 0, -1);
-                return;
-            case Direction.West:
-                currForceDirection = new Vector3(-1, 0, 0);
-                return;
-            case Direction.NorthWest:
-                currForceDirection = new Vector3(-1, 0, 1);
-                return;
-            default:
-                break;
-        }
-    }
+	void UseTheForce()
+	{
+		switch (currDirection)
+		{
+		case Direction.North:
+			currForceDirection = new Vector3(0, 0, 1);
+			return;
+		case Direction.NorthEast:
+			currForceDirection = new Vector3(1, 0, 1);
+			return;
+		case Direction.East:
+			currForceDirection = new Vector3(1, 0, 0);
+			return;
+		case Direction.SouthEast:
+			currForceDirection = new Vector3(1, 0, -1);
+			return;
+		case Direction.South:
+			currForceDirection = new Vector3(0, 0, -1);
+			return;
+		case Direction.SouthWest:
+			currForceDirection = new Vector3(-1, 0, -1);
+			return;
+		case Direction.West:
+			currForceDirection = new Vector3(-1, 0, 0);
+			return;
+		case Direction.NorthWest:
+			currForceDirection = new Vector3(-1, 0, 1);
+			return;
+		default:
+			break;
+		}
+	}
 
 	public bool hasHook {
 		get { return _hasHook; }
 		set { _hasHook = value; }
 	}
 }
-
-
