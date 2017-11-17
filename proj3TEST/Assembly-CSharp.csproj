@@ -66,11 +66,15 @@
      <Compile Include="Assets\Scripts\MapLibrary.cs" />
      <Compile Include="Assets\Scripts\MineTile.cs" />
      <Compile Include="Assets\Scripts\NoTile.cs" />
+     <Compile Include="Assets\Scripts\Percentage.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerTag.cs" />
+     <Compile Include="Assets\Scripts\Resize.cs" />
      <Compile Include="Assets\Scripts\TeleportTile.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\TileHolder.cs" />
+     <Compile Include="Assets\Scripts\Timer.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/wesleypickering/cs198-76/KingoftheCubes/KingOfTheCubes/proj3TEST/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
