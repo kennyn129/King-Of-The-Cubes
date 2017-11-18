@@ -3,7 +3,7 @@ guid: 32c302eeba7d0384bb0329e19bcee66d
 timeCreated: 1510882697
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: ArmIK_L
     100002: ArmIK_R
@@ -156,18 +156,842 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: HammerDown
+      takeName: HammerDown
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HammerHit
+      takeName: HammerHit
+      firstFrame: -1
+      lastFrame: 54
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hook
+      takeName: Hook
+      firstFrame: -1
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Running
+      takeName: Running
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump
+      takeName: Jump
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bag
+        weight: 1
+      - path: Hammer
+        weight: 1
+      - path: Hat
+        weight: 1
+      - path: Hook
+        weight: 1
+      - path: King_of_the_Cube
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_L
+        weight: 1
+      - path: King_of_the_Cube/ArmIK_R
+        weight: 1
+      - path: King_of_the_Cube/Bone
+        weight: 1
+      - path: King_of_the_Cube/Elbow_L
+        weight: 1
+      - path: King_of_the_Cube/Elbow_R
+        weight: 1
+      - path: King_of_the_Cube/FootIK_L
+        weight: 1
+      - path: King_of_the_Cube/FootIK_R
+        weight: 1
+      - path: King_of_the_Cube/Hook_0
+        weight: 1
+      - path: King_of_the_Cube/Knee_L
+        weight: 1
+      - path: King_of_the_Cube/Knee_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Middle1_L/Middle2_L/Middle3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pinky1_L/Pinky2_L/Pinky3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Pointer1_L/Pointer2_L/Pointer3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_L/Forearm_L/Wrist_L/Thumb2_L/Thumb3_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Middle1_R/Middle2_R/Middle3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pinky1_R/Pinky2_R/Pinky3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Pointer1_R/Pointer2_R/Pointer3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperArm_R/Forearm_R/Wrist_R/Thumb2_R/Thumb3_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso
+        weight: 1
+      - path: King_of_the_Cube/LowerTorso/UpperTorso/Head
+        weight: 1
+      - path: Player
+        weight: 1
+      - path: Rope
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 100
     meshCompression: 0
     addColliders: 0
-    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -183,7 +1007,6 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

@@ -122,21 +122,21 @@ public class PlayerController : MonoBehaviour
 		items = new List<Item>();
 		moveDebuff = 1;
 		team = playerNum;
-		horizontalAxis = "XboxHorizontal" + playerNum.ToString();
+		/*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
 		verticalAxis = "XboxVertical" + playerNum.ToString();
 		hammerControl = "XboxX" + playerNum.ToString();
 		hookControl = "XboxY" + playerNum.ToString();
 		breakGroundControl = "XboxB" + playerNum.ToString();
 		jumpControl = "XboxA" + playerNum.ToString();
-		itemControl = "XboxRB" + playerNum.ToString();
+		itemControl = "XboxRB" + playerNum.ToString();*/
 
-		/*horizontalAxis = "Horizontal" + playerNum.ToString();
+		horizontalAxis = "Horizontal" + playerNum.ToString();
 		verticalAxis = "Vertical" + playerNum.ToString();
 		hammerControl = "Hammer" + playerNum.ToString();
 		hookControl = "Hook" + playerNum.ToString();
 		breakGroundControl = "BreakGround" + playerNum.ToString();
 		jumpControl = "Jump" + playerNum.ToString ();
-		itemControl = "item" + playerNum.ToString ();*/
+//		itemControl = "item" + playerNum.ToString ();
 
 		//items = new Item[2];
 
@@ -241,22 +241,22 @@ public class PlayerController : MonoBehaviour
 				//transform.GetComponent<Renderer>().Material.Color = color;
 			}
 
-			if (Input.GetButtonDown(itemControl))
-			{
-				Debug.Log("itemControl Button Pressed");
-				if(items.Count > 0)
-				if (items[0] != null)
-				{
-					if (items[0].Use(this) == 0)
-					{
-						print("DONE USING");
-					}
-				}
-				else
-				{
-					print("no item");
-				}
-			}
+//			if (Input.GetButtonDown(itemControl))
+//			{
+//				Debug.Log("itemControl Button Pressed");
+//				if(items.Count > 0)
+//				if (items[0] != null)
+//				{
+//					if (items[0].Use(this) == 0)
+//					{
+//						print("DONE USING");
+//					}
+//				}
+//				else
+//				{
+//					print("no item");
+//				}
+//			}
 
 			if (Input.GetButtonDown(hammerControl) && hammerTime >= reloadHammer)
 			{
