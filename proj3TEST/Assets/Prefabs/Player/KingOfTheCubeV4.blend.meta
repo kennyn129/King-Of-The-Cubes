@@ -1,0 +1,376 @@
+fileFormatVersion: 2
+guid: 06f3f9361cb8a604e97b28bbb56a3119
+timeCreated: 1510966809
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: ArmIK_L
+    100002: ArmIK_R
+    100004: Bag
+    100006: Bone
+    100008: Elbow_L
+    100010: Elbow_R
+    100012: Foot_L
+    100014: Foot_R
+    100016: Forearm_L
+    100018: Forearm_R
+    100020: Hammer
+    100022: Hat
+    100024: Head
+    100026: Hook
+    100028: Hook_0
+    100030: King_of_the_Cube
+    100032: //RootNode
+    100034: Knee_L
+    100036: Knee_R
+    100038: LowerLeg_L
+    100040: LowerLeg_R
+    100042: LowerTorso
+    100044: Middle1_L
+    100046: Middle1_R
+    100048: Middle2_L
+    100050: Middle2_R
+    100052: Middle3_L
+    100054: Middle3_R
+    100056: Pinky1_L
+    100058: Pinky1_R
+    100060: Pinky2_L
+    100062: Pinky2_R
+    100064: Pinky3_L
+    100066: Pinky3_R
+    100068: Player
+    100070: Pointer1_L
+    100072: Pointer1_R
+    100074: Pointer2_L
+    100076: Pointer2_R
+    100078: Pointer3_L
+    100080: Pointer3_R
+    100082: Rope
+    100084: Thumb2_L
+    100086: Thumb2_R
+    100088: Thumb3_L
+    100090: Thumb3_R
+    100092: UpperArm_L
+    100094: UpperArm_R
+    100096: UpperLeg_L
+    100098: UpperLeg_R
+    100100: UpperTorso
+    100102: Wrist_L
+    100104: Wrist_R
+    400000: ArmIK_L
+    400002: ArmIK_R
+    400004: Bag
+    400006: Bone
+    400008: Elbow_L
+    400010: Elbow_R
+    400012: Foot_L
+    400014: Foot_R
+    400016: Forearm_L
+    400018: Forearm_R
+    400020: Hammer
+    400022: Hat
+    400024: Head
+    400026: Hook
+    400028: Hook_0
+    400030: King_of_the_Cube
+    400032: //RootNode
+    400034: Knee_L
+    400036: Knee_R
+    400038: LowerLeg_L
+    400040: LowerLeg_R
+    400042: LowerTorso
+    400044: Middle1_L
+    400046: Middle1_R
+    400048: Middle2_L
+    400050: Middle2_R
+    400052: Middle3_L
+    400054: Middle3_R
+    400056: Pinky1_L
+    400058: Pinky1_R
+    400060: Pinky2_L
+    400062: Pinky2_R
+    400064: Pinky3_L
+    400066: Pinky3_R
+    400068: Player
+    400070: Pointer1_L
+    400072: Pointer1_R
+    400074: Pointer2_L
+    400076: Pointer2_R
+    400078: Pointer3_L
+    400080: Pointer3_R
+    400082: Rope
+    400084: Thumb2_L
+    400086: Thumb2_R
+    400088: Thumb3_L
+    400090: Thumb3_R
+    400092: UpperArm_L
+    400094: UpperArm_R
+    400096: UpperLeg_L
+    400098: UpperLeg_R
+    400100: UpperTorso
+    400102: Wrist_L
+    400104: Wrist_R
+    4300000: Player
+    4300002: Hammer
+    4300004: Bag
+    4300006: Rope
+    4300008: Hook
+    4300010: Hat
+    7400000: Default Take
+    7400002: HammerDown
+    7400004: HammerHit
+    7400006: Hook
+    7400008: Idle
+    7400010: Running
+    7400012: Jump
+    9500000: //RootNode
+    13700000: Bag
+    13700002: Hammer
+    13700004: Hat
+    13700006: Hook
+    13700008: Player
+    13700010: Rope
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: HammerDown
+      takeName: HammerDown
+      firstFrame: -1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HammerHit
+      takeName: HammerHit
+      firstFrame: -1
+      lastFrame: 54
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hook
+      takeName: Hook
+      firstFrame: -1
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Running
+      takeName: Running
+      firstFrame: -1
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump
+      takeName: Jump
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
 		playerLayer = LayerMask.GetMask("Player");
 		floorLayer = LayerMask.GetMask("Floor");
 		hitOrigin = transform.GetChild (1);
-		hitOrigin.localPosition = new Vector3 (0, 1.5f, 0);
+		hitOrigin.localPosition = new Vector3 (0, 3.5f, 0);
 		reset = false;
 		isDisabled = false;
 		hammerTime = 0;
@@ -330,6 +330,7 @@ public class PlayerController : MonoBehaviour
 
 	void useHammer()
 	{
+		//anim.SetTrigger ("HammerHit");
 		hammerTime = 0;
 		UseTheForce();
 		Collider[] colls = Physics.OverlapSphere(hitOrigin.position + currForceDirection.normalized * 1.5f, 1f, playerLayer);
@@ -352,6 +353,7 @@ public class PlayerController : MonoBehaviour
 	void breakGround()
 	{
 		hammerTime = 0;
+		//anim.SetTrigger ("HammerGround");
 		UseTheForce();
 		floorHit = new RaycastHit();
 		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
@@ -369,6 +371,7 @@ public class PlayerController : MonoBehaviour
 		//		isDisabled = true;
 		//		canMove = false;
 		hasHook = false;
+		//anim.SetTrigger ("Hook");
 		UseTheForce();
 		//        playerRB.velocity = Vector3.zero;
 		// Instantiate hook prefab with a certain velocity
@@ -454,6 +457,8 @@ public class PlayerController : MonoBehaviour
 		} else {
 			anim.SetBool ("Running", false);
 		}
+
+
 
 		if (hor > 0 && ver > 0) {
 			currDirection = Direction.NorthEast;

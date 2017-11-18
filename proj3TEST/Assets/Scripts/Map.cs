@@ -35,7 +35,7 @@ public class Map : MonoBehaviour
         playerSpawnPoints = new GameObject[4];
         for (int i = 0; i < 4; i++)
             playerSpawnPoints[i] = transform.Find("Player Spawn " + (i + 1)).gameObject;
-
+		GameObject.FindGameObjectWithTag ("Player1").transform.position = new Vector3 (0, 4, 0);
         tilesHolder = transform.Find("Tiles Holder").gameObject;
         //itemDropHolder = transform.Find("ItemDrops Holder").gameObject;
         //        if (!mapManager)
