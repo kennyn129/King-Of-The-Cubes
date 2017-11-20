@@ -2,18 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour {
+public abstract class Item : MonoBehaviour
+{
     public float timeToLive, activeTimeStamp;
     public int uses, team;
     public bool activate, taken;
+    protected int alternate, alternateFade;
+    protected float height;
 
     // Use this for initialization
-    protected abstract void Start();
+    protected virtual void Start()
+    {
+        alternate = 1;
+        alternateFade = -1;
+        height = 0;
+        timeToLive = 70;
+        activeTimeStamp = GameManager.time + timeToLive;
+    }
 
     // Update is called once per frame
-    protected abstract void Update();
+    protected virtual void Update()
+    {
+        if (!taken)
+        {
+            transform.position += new Vector3(0, .01f * alternate, 0);
+            height += 0.01f * alternate;
+            if (height >= .7f || height <= -.3f)
+                alternate *= -1;
+            transform.Rotate(0, 1, 0);
+            float timeLeft = activeTimeStamp - GameManager.time;
+            float percentageOfTime = timeLeft / timeToLive;
+            if (percentageOfTime < .35f)
+            {
+                Blink(percentageOfTime);
+            }
+        }
+    }
 
-    
+    void Blink(float percentageOfTime)
+    {
+        Color c = transform.GetComponent<Renderer>().material.color;
+        float blinkFrequency = .9f;
+        if (percentageOfTime / .35f < .5f)
+            blinkFrequency = .7f;
+        c.a += alternateFade * (1 - blinkFrequency);
+        if (c.a <= 0 || c.a >= 1)
+            alternateFade *= -1;
+        transform.GetComponent<Renderer>().material.color = c;
+    }
 
     protected void OnTriggerEnter(Collider other)
     {
@@ -33,6 +69,9 @@ public abstract class Item : MonoBehaviour {
             {
                 p.items.Add(this);
                 transform.GetComponent<MeshRenderer>().enabled = false;
+                Color c = transform.GetComponent<Renderer>().material.color;
+                c.a = 1;
+                transform.GetComponent<Renderer>().material.color = c;
             }
             else
             {
@@ -47,7 +86,7 @@ public abstract class Item : MonoBehaviour {
         print("USING item");
         uses--;
         activate = true;
-        activeTimeStamp = GameManager.time + timeToLive;
+        //activeTimeStamp = GameManager.time + timeToLive;
 
         if (uses == 0)
         {
@@ -58,5 +97,5 @@ public abstract class Item : MonoBehaviour {
     }
 
     public abstract int Use(PlayerController p);
-    
+
 }

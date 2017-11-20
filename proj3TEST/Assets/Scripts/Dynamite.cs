@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dynamite : Item {
+public class Dynamite : Item
+{
     //public float timeToLive, activeTimeStamp;
     //public int uses, team;
     //public bool activate;
@@ -13,22 +14,24 @@ public class Dynamite : Item {
     // Use this for initialization
     protected override void Start()
     {
+        base.Start();
         activate = false;
         uses = 1;
-        timeBeforeExplosion = 10f;
+        timeBeforeExplosion = 15f;
         activate = false;
         taken = false;
-        timeToLive = 30;
+        //timeToLive = 30;
         //uses = 2;
         //timeToLive = 10;
-        activeTimeStamp = GameManager.time + timeToLive;
         //timeToLive = 20;
         //explosionDuration = 5;
         //activeTimeStamp = 0;// GameManager.time + timeToLive;
     }
 
     // Update is called once per frame
-    protected override void Update () {
+    protected override void Update()
+    {
+        base.Update();
         if (activeTimeStamp <= GameManager.time && !taken)
         {
             Destroy(gameObject);
@@ -38,7 +41,7 @@ public class Dynamite : Item {
             if (activeTimeStamp < GameManager.time)
             {
                 //transform.GetComponent<SphereCollider>().enabled = true;
-                
+
                 //if (activeTimeStamp + explosionDuration < GameManager.time)
                 //{
                 GameObject explosion = Instantiate(explosionPrefab);
@@ -49,14 +52,14 @@ public class Dynamite : Item {
                 //}
             }
         }
-	}
+    }
 
     public override int Use(PlayerController p)
     {
-        print("USING dynamite");
 
         transform.GetComponent<MeshRenderer>().enabled = true;
         transform.position = p.transform.position;
+
         activeTimeStamp = GameManager.time + timeBeforeExplosion;
         transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
         return UpdateUse(p);

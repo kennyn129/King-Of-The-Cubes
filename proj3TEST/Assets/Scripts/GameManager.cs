@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] players;
     public int selectedMap;
     public Map map;
-
+    public bool gameStarted, mainMenu;
     int playerCount;
     public int playersInGame;
 
@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     {
         if (gameManager == null)
             gameManager = this;
-
+        gameStarted = false;
+        mainMenu = true;
         inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
         mapHolder = GameObject.Find("Map Holder");
         time = 0;
@@ -36,22 +37,22 @@ public class GameManager : MonoBehaviour
         //InstantiateItems();
 
         selectedMap = 0;
-        for (int i = 0; i < MapLibrary.mapCount; i++)
+        /*for (int i = 0; i < MapLibrary.mapCount; i++)
         {
             Map m = Instantiate(map);
             m.transform.name = "Map " + (i + 1);
             m.transform.position += new Vector3(i * 50, 0, 0);
             //m.gameObject.SetActive(i == selectedMap);
             m.transform.SetParent(mapHolder.transform);
-        }
-        /*
-        for( int i = 0; i < MapLibrary.bitmaps.Length; i++)
+        }*/
+
+        for (int i = 0; i < MapLibrary.bitmaps.Length; i++)
         {
             Map m = Instantiate(map);
             m.transform.name = "Map " + (i + 1);
             m.transform.position += new Vector3(i * 50, 0, 0);
             m.transform.SetParent(mapHolder.transform);
-        }*/
+        }
     }
 
     // Update is called once per frame
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour
         {
             if (selectedMap < mapHolder.transform.childCount)
             {
-                selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
+                selectedMap = (selectedMap + 1) % MapLibrary.bitmaps.Length;
+                //selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
                 //ResetGame();
                 //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
 

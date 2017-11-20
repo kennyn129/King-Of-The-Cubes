@@ -13,8 +13,9 @@ public class Map : MonoBehaviour
     int[] mapLayout;    // Each element consists of what the tile for the terrain will be, -1 == empty
     public GameObject[] tilePrefabs;
     public GameObject[] itemDropPrefabs;
-    public int dim, mapID;
-    public float spawnItemTimeStamp, spawnItemTime;
+    public int height, width, mapID, dim, itemSpawnFrequency;
+    public float spawnItemTimeStamp;
+    public float[] spawnItemTimes;
     public bool canSpawnItems;
 
 
@@ -25,17 +26,19 @@ public class Map : MonoBehaviour
 
         mapID = mapCt;
         mapCt++;
+        itemSpawnFrequency = 1;
         canSpawnItems = true;
-        spawnItemTime = 20f;
-        spawnItemTimeStamp = GameManager.time + spawnItemTime;
+        spawnItemTimes = new float[] { 20f, 50f, 120f };
+        spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
 
-        //Texture2D bitmap = MapLibrary.bitmaps[mapID];
-
+        Texture2D bitmap = MapLibrary.bitmaps[mapID];
+        width = bitmap.width;
+        height = bitmap.height;
         int playerSpawn = 0;
         playerSpawnPoints = new GameObject[4];
         for (int i = 0; i < 4; i++)
             playerSpawnPoints[i] = transform.Find("Player Spawn " + (i + 1)).gameObject;
-		GameObject.FindGameObjectWithTag ("Player1").transform.position = new Vector3 (0, 4, 0);
+
         tilesHolder = transform.Find("Tiles Holder").gameObject;
         //itemDropHolder = transform.Find("ItemDrops Holder").gameObject;
         //        if (!mapManager)
@@ -48,7 +51,7 @@ public class Map : MonoBehaviour
         //}
 
         List<GameObject> tpTiles = new List<GameObject>();
-        /*
+        List<GameObject> movingTiles = new List<GameObject>();
         for (int y = 0; y < bitmap.height; y++)
             for (int x = 0; x < bitmap.width; x++)
             {
@@ -61,14 +64,14 @@ public class Map : MonoBehaviour
                 //k = MapLibrary.maps25x25[mapID, i, j];
 
                 Color32 c = bitmap.GetPixel(x, y);// *255;
-                Color cc = bitmap.GetPixel(x, y) ;
+                Color cc = bitmap.GetPixel(x, y);
                 //string hexa = (int)c.r + "" + (int)c.g + "" + (int)c.b;
                 //print(hexa);
                 //print(RGBtoString(c));
                 k = MapLibrary.ColorToTile(c);
-                if (k == -1)
-                    print(cc+ " " + x + " " + y + " " + c + " " +MapLibrary.RGBtoString(c) + " " + k);
-                //print(k);
+                //if (k == -1)
+                //    print(cc+ " " + x + " " + y + " " + c + " " +MapLibrary.RGBtoString(c) + " " + k);
+
                 if (k % 2 == 0 && k > 0)
                 {
                     if (playerSpawn < 4)
@@ -82,17 +85,25 @@ public class Map : MonoBehaviour
                 {
                     k = (k + 1) / 2;
                 }
-                GameObject tile = Instantiate(tilePrefabs[k]);
-                tile.transform.GetComponent<Tile>().tileID = (y * dim) + x;
-                tile.transform.SetParent(tilesHolder.transform);
-                tile.transform.position = transform.position + new Vector3(x * 1.5f, 0, y * 1.5f);
-                if (k == 5)
+                if (k > 0)
                 {
-                    tpTiles.Add(tile);
-                }
-            }*/
-        //print(bitmap.GetPixel(j, i) * 255);
+                    GameObject tile = Instantiate(tilePrefabs[k]);
+                    tile.transform.GetComponent<Tile>().tileID = (y * width) + x;
+                    tile.transform.SetParent(tilesHolder.transform);
+                    tile.transform.position = transform.position + new Vector3(x * 1.5f, 0, y * 1.5f);
 
+                    if (k == 5)
+                    {
+                        tpTiles.Add(tile);
+                    }
+                    else if (k == 6)
+                    {
+                        movingTiles.Add(tile);
+                    }
+                }
+            }
+        //print(bitmap.GetPixel(j, i) * 255);
+        /*
         for (int i = 0; i < dim; i++)
         {
             for (int j = 0; j < dim; j++)
@@ -126,7 +137,7 @@ public class Map : MonoBehaviour
                     tpTiles.Add(tile);
                 }
             }
-        }
+        }*/
         List<int> tpTileMap = (List<int>)MapLibrary.teleportTiles[mapID];
         if (tpTileMap != null)
         {
@@ -144,12 +155,79 @@ public class Map : MonoBehaviour
                 }
             }
         }
+
+        List<List<int>> destinations = (List<List<int>>)MapLibrary.movingTiles[mapID];
+        if (destinations != null)
+        {
+            //print("OKAOSK");
+            for (int i = 0; i < destinations.Count; i++)
+            {
+                MovingTile m = movingTiles[i].transform.GetComponent<MovingTile>();
+                m.destinations = new List<Vector3>();
+                m.originalPosition = m.transform.position;
+                //print(rcver);
+                List<int> coords = destinations[i];
+                for (int j = 0; j < coords.Count; j += 3)
+                {
+                    Vector3 dest = m.transform.position +
+                        new Vector3(coords[j], coords[j + 1], coords[j + 2]) * 1.5f;
+                    m.destinations.Add(dest);
+                }
+            }
+        }
         //Reset();
         //SetSuddenDeathTimeStamps3(20f);
         //SetSuddenDeathTimeStamps2(0, 30f);
         //        SetSuddenDeathTimeStamps1(0, 30f);
         //SetSuddenDeathTimeStamps(0, 10f);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
+        {
+            SpawnItem();
+            spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
+        }
+        //print(tilesHolder.transform.childCount);
+    }
+    public void SpawnItem()
+    {
+        //bool validToSpawnItem = false;
+        List<GameObject> availableTiles = new List<GameObject>();
+        //int tileCt = dim * dim;
+        //print(tilesHolder.transform.childCount);
+        for (int j = 0; j < tilesHolder.transform.childCount; j++)
+            if (tilesHolder.transform.GetChild(j).GetComponent<Tile>().active &&
+                tilesHolder.transform.GetChild(j).childCount == 0 &&
+                tilesHolder.transform.GetChild(j).gameObject.active)
+                availableTiles.Add(tilesHolder.transform.GetChild(j).gameObject);
+        if (availableTiles.Count > 0)
+        {
+            int item = Random.Range(0, itemDropPrefabs.Length);
+            GameObject itemDrop = Instantiate(itemDropPrefabs[item]);
+            GameObject tile = availableTiles[Random.Range(0, availableTiles.Count)];
+            itemDrop.transform.position = new Vector3(tile.transform.position.x, 1, tile.transform.transform.position.z);
+            itemDrop.transform.SetParent(tile.transform);
+        }
+    }
+
+    public void Reset()
+    {
+        //tiles.Reset();
+        for (int i = 0; i < 4; i++)
+            GameManager.gameManager.players[i].transform.position =
+                new Vector3(playerSpawnPoints[i].transform.position.x,
+                            1,
+                            playerSpawnPoints[i].transform.position.z);
+
+
+        for (int i = 0; i < tilesHolder.transform.childCount; i++)
+            tilesHolder.transform.GetChild(i).GetComponent<Tile>().Reset();
+
+
+    }
+
 
     /* Tiles slowly disappear in spiral behavior from out to in */
     private void SetSuddenDeathTimeStamps(int offset, float deathTime)
@@ -301,53 +379,6 @@ public class Map : MonoBehaviour
         SetSuddenDeathTimeStamp3Helper(r, c - dir, offset + 1, deathTime, dir * -1);
 
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
-        {
-            SpawnItem();
-            spawnItemTimeStamp = GameManager.time + spawnItemTime;
-        }
-        //print(tilesHolder.transform.childCount);
-    }
-    public void SpawnItem()
-    {
-        //bool validToSpawnItem = false;
-        List<GameObject> availableTiles = new List<GameObject>();
-        //int tileCt = dim * dim;
-        print(tilesHolder.transform.childCount);
-        for (int j = 0; j < tilesHolder.transform.childCount; j++)
-            if (tilesHolder.transform.GetChild(j).GetComponent<Tile>().active &&
-                tilesHolder.transform.GetChild(j).childCount == 0 &&
-                tilesHolder.transform.GetChild(j).gameObject.active)
-                availableTiles.Add(tilesHolder.transform.GetChild(j).gameObject);
-        if (availableTiles.Count > 0)
-        {
-            int item = Random.Range(0, itemDropPrefabs.Length);
-            GameObject itemDrop = Instantiate(itemDropPrefabs[item]);
-            GameObject tile = availableTiles[Random.Range(0, availableTiles.Count)];
-            itemDrop.transform.position = new Vector3(tile.transform.position.x, 1, tile.transform.transform.position.z);
-            itemDrop.transform.SetParent(tile.transform);
-        }
-    }
-
-    public void Reset()
-    {
-        //tiles.Reset();
-        for (int i = 0; i < 4; i++)
-            GameManager.gameManager.players[i].transform.position =
-                new Vector3(playerSpawnPoints[i].transform.position.x,
-                            1,
-                            playerSpawnPoints[i].transform.position.z);
-
-
-        for (int i = 0; i < dim * dim; i++)
-            tilesHolder.transform.GetChild(i).GetComponent<Tile>().Reset();
-
-
-    }
-
 
 
 }

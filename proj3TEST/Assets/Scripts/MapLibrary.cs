@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapLibrary : MonoBehaviour {
+public class MapLibrary : MonoBehaviour
+{
     public static MapLibrary mapLib;
 
     // *** CHANGE THIS VALUE EVERY TIME YOU ADD/REMOVE A MAP ***
-    public static int mapCount = 7; 
+    public static int mapCount = 7;
 
     // *** PLEASE TAKE NOTE: THE MAPS BELOW WILL BE VERTICALLY FLIPPED IN THE GAME ***
     // MAPPING for tile t:
@@ -14,12 +15,12 @@ public class MapLibrary : MonoBehaviour {
     // t % 2 == 1: Odd numbered tiles = Non-void tile
     // t % 2 == 0: Even numbered tiles = Non-void tile where Player spawns
     // t < 0: Negative numbered tiles = Map environment aspects ??? TBD
-    
+
     // Ex: tile[0] = void tile
     //     tile[1] = plain tile
     //     if t = 1, map spawns plain tile (tile[t])
     //     if t = 2, map spawns plain tile (tile[t/2]) and spawns player on top
-    
+
     // Only spawn player above tiles that are valid to make game playable.
 
     // *** CHANGE i VALUE IN "new int[i,j,k]" BELOW WHEN ADD/REMOVE A MAP ***
@@ -235,7 +236,9 @@ public class MapLibrary : MonoBehaviour {
 
     public static Hashtable colorToTileMap;
     public static Texture2D[] bitmaps;
+    public static Hashtable movingTiles;
     public static Hashtable teleportTiles;
+
 
     // Hashtable to keep track of which maps contain teleport tiles
     // *******************     NOTE      *******************
@@ -250,13 +253,24 @@ public class MapLibrary : MonoBehaviour {
     void InstantiateTeleportTiles()
     {
         teleportTiles = new Hashtable();
-        
-        // Map 7
+
+        // Map 4
         int[] tpConnections = new int[] { -1, 3, 0, -1, 17, 10, 10, 20, 0, 3, -1, 17, 20, 0, 10, 10, 3, -1, 20, 17, -1 };
-        teleportTiles.Add(6, new List<int>(tpConnections));
- 
-        
+        teleportTiles.Add(3, new List<int>(tpConnections));
+
+
     }
+
+    /* Tile Key:
+         *  PSP = Player Spawn Point
+         *  0 = No tile
+         *  1 = Plain tile, 2 = Plain tile + PSP
+         *  3 = Ice tile, 4 = ... + PSP
+         *  5 = Decay tile, 6 = ...
+         *  7 = Mine tile, 8 = ...
+         *  9 = Teleport tile, 10 = ???
+         *  11 = Moving tile, 11 = ...
+    */
 
     void InstantiateColorToTileMapping()
     {
@@ -264,7 +278,42 @@ public class MapLibrary : MonoBehaviour {
         //colorToTileMap.Add("000000", 0);
         colorToTileMap["000000"] = 0;
         colorToTileMap["009600"] = 1;
-        colorToTileMap["FF0000"] = 2;
+        colorToTileMap["003200"] = 2;
+        colorToTileMap["8B4513"] = 5;
+        colorToTileMap["FFFFFF"] = 7;
+        colorToTileMap["00FFFA"] = 9;
+        colorToTileMap["FF0000"] = 11;
+        //colorToTileMap["FF0000"] = 6;
+    }
+
+    void InstantiateMovingTiles()
+    {
+        movingTiles = new Hashtable();
+
+        // Map 5
+        List<List<int>> destinations = new List<List<int>>();
+        movingTiles.Add(5, destinations);
+        int[] coords;
+        coords = new int[] { 0, 0, 0,
+                            24, 0, 0,
+                            24, 0, 24,
+                             0, 0, 24 };
+        destinations.Add(new List<int>(coords));
+        coords = new int[] { 0, 0, 0,
+                             0, 0, 24,
+                           -24, 0, 24,
+                           -24, 0, 0 };
+        destinations.Add(new List<int>(coords));
+        coords = new int[] { 0, 0, 0,
+                             0, 0, -24,
+                            24, 0, -24,
+                            24, 0, 0 };
+        destinations.Add(new List<int>(coords));
+        coords = new int[] { 0, 0, 0,
+                           -24, 0, 0,
+                           -24, 0, -24,
+                             0, 0, -24 };
+        destinations.Add(new List<int>(coords));
     }
 
     public static int ColorToTile(Color32 c)
@@ -275,7 +324,7 @@ public class MapLibrary : MonoBehaviour {
             return -1;
         if (!colorToTileMap.ContainsKey(hex))
             return -1;
-        return (int) colorToTileMap[hex];
+        return (int)colorToTileMap[hex];
     }
 
     private void Awake()
@@ -286,12 +335,12 @@ public class MapLibrary : MonoBehaviour {
             //Bitmap bmp = new Bitmap(@"C:\Users\TwoTen512\Desktop\cs198\project3 beta\Project3DRW\KingOfTheCubes\KingOfTheCubes\proj3TEST\Assets\Resources\Bitmaps\Map 0.bmp");
             //Texture2D t = Resources.Load("Bitmaps/Map 0") as Texture2D;
             //print(">>>" +t.GetPixel(0,0));
-            //bitmaps = Resources.LoadAll<Texture2D>("Bitmaps");
-
+            bitmaps = Resources.LoadAll<Texture2D>("Bitmaps");
+            InstantiateMovingTiles();
             InstantiateColorToTileMapping();
             InstantiateTeleportTiles();
         }
-        
+
     }
 
     public static string RGBtoString(Color32 c)
@@ -350,7 +399,8 @@ public class MapLibrary : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
-	}
+    }
 }
