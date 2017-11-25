@@ -10,6 +10,8 @@ public class Map : MonoBehaviour
     GameObject[] playerSpawnPoints;
     GameObject itemDropHolder;
 
+	GameManager gameManager;
+
     int[] mapLayout;    // Each element consists of what the tile for the terrain will be, -1 == empty
     public GameObject[] tilePrefabs;
     public GameObject[] itemDropPrefabs;
@@ -23,13 +25,12 @@ public class Map : MonoBehaviour
     void Start()
     {
 
-
-        mapID = mapCt;
-        mapCt++;
+		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager>();
+		mapID = gameManager.MapChoice;
         itemSpawnFrequency = 1;
         canSpawnItems = true;
         spawnItemTimes = new float[] { 20f, 50f, 120f };
-        spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
+		spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
 
         Texture2D bitmap = MapLibrary.bitmaps[mapID];
         width = bitmap.width;
@@ -76,7 +77,7 @@ public class Map : MonoBehaviour
                 {
                     if (playerSpawn < 4)
                     {
-                        playerSpawnPoints[playerSpawn].transform.position = transform.position + new Vector3(x * 1.5f, 0, y * 1.5f);
+                        playerSpawnPoints[playerSpawn].transform.position = transform.position + new Vector3(x * 2f, 0, y * 2f);
                         playerSpawn++;
                     }
                     k /= 2;
@@ -90,7 +91,7 @@ public class Map : MonoBehaviour
                     GameObject tile = Instantiate(tilePrefabs[k]);
                     tile.transform.GetComponent<Tile>().tileID = (y * width) + x;
                     tile.transform.SetParent(tilesHolder.transform);
-                    tile.transform.position = transform.position + new Vector3(x * 1.5f, 0, y * 1.5f);
+                    tile.transform.position = transform.position + new Vector3(x * 2f, 0, y * 2f);
 
                     if (k == 5)
                     {
@@ -184,10 +185,10 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
+		if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
         {
             SpawnItem();
-            spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
+			spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
         }
         //print(tilesHolder.transform.childCount);
     }
@@ -216,7 +217,7 @@ public class Map : MonoBehaviour
     {
         //tiles.Reset();
         for (int i = 0; i < 4; i++)
-            GameManager.gameManager.players[i].transform.position =
+            gameManager.players[i].transform.position =
                 new Vector3(playerSpawnPoints[i].transform.position.x,
                             1,
                             playerSpawnPoints[i].transform.position.z);

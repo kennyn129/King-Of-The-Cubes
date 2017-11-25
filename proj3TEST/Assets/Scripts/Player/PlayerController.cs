@@ -154,10 +154,10 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void isGroundedCheck () {
-		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.65f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,05f), -Vector3.up, 1.65f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.65f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.65f, floorLayer)) {
+		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.5f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,.05f), -Vector3.up, 1.5f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.5f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.5f, floorLayer)) {
 			isGrounded = true;
 		} else {
 			isGrounded = false;
@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
 
 			if (Input.GetButtonDown(hammerControl) && hammerTime >= reloadHammer)
 			{
-				useHammer();
+				useHammer(moveHorizontal, moveVertical);
 			}
 			else if (Input.GetButtonDown(breakGroundControl) && hammerTime >= reloadHammer)
 			{
@@ -282,15 +282,15 @@ public class PlayerController : MonoBehaviour
 			}
 			else if (Input.GetButton(hookControl) && !hasPlacedHook && _hasHook) //if currently charging 
 			{
-				//				Debug.Log ("currently Charging hook");
+				//Debug.Log ("currently Charging hook");
 				placeHookTime += Time.deltaTime;
 				currVelocity = slowVelocity;
 			}
 			else if (Input.GetButtonUp(hookControl) && !hasPlacedHook && _hasHook) // if lets go before the timer gets to placeHOokTimer;
 			{  
 				Debug.Log ("button was let go before timer reached placeHookTimer");
-				//				StartCoroutine (useHook ());
-				useHook ();
+				//StartCoroutine (useHook ());
+				useHook (moveHorizontal, moveVertical);
 				currVelocity = maxVelocity;
 			} else if (Input.GetButtonDown(jumpControl) && isGrounded) {
 				Debug.Log ("Jump Key Pressed");
@@ -304,6 +304,7 @@ public class PlayerController : MonoBehaviour
 			} 
 			else if(!isGrounded) {
 				rotateAir (moveHorizontal, moveVertical);
+				moveAir (moveHorizontal, moveVertical);
 			}
 		}
 
@@ -328,12 +329,19 @@ public class PlayerController : MonoBehaviour
 	}
 
 
-	void useHammer()
+	void useHammer(float hor, float ver)
 	{
 		//anim.SetTrigger ("HammerHit");
 		hammerTime = 0;
 		UseTheForce();
-		Collider[] colls = Physics.OverlapSphere(hitOrigin.position + currForceDirection.normalized * 1.5f, 1f, playerLayer);
+		Vector3 shootOut;
+		if (hor == 0 && ver == 0) {
+			shootOut = currForceDirection;
+		} else {
+			shootOut = new Vector3 (hor, 0, ver);
+		}
+			
+		Collider[] colls = Physics.OverlapSphere(hitOrigin.position + shootOut.normalized * 1.5f, 1f, playerLayer);
 		Debug.Log(colls);
 		foreach (Collider x in colls)
 		{
@@ -367,41 +375,30 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void useHook() {
+	public void useHook(float hor, float ver) {
 		//		isDisabled = true;
 		//		canMove = false;
 		hasHook = false;
 		//anim.SetTrigger ("Hook");
 		UseTheForce();
-		//        playerRB.velocity = Vector3.zero;
 		// Instantiate hook prefab with a certain velocity
+		Vector3 shootOut;
+		if (hor == 0 && ver == 0) {
+			shootOut = currForceDirection;
+		} else {
+			shootOut = new Vector3 (hor, 0, ver);
+		}
+
 		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
 		hook.GetComponent<HookScript> ()._playerNum = playerNum;
-		hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
+		hook.GetComponent<Rigidbody>().velocity = shootOut.normalized * hookSpeed;
 
 		//		yield return new WaitForSeconds(.7f);
 		hookTime = 0;
 		//		canMove = true;
 		//		isDisabled = false;
 	}
-
-	//    public IEnumerator useHook()
-	//    {
-	//        isDisabled = true;
-	//        canMove = false;
-	//		hasHook = false;
-	//        UseTheForce();
-	////        playerRB.velocity = Vector3.zero;
-	//        // Instantiate hook prefab with a certain velocity
-	//		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
-	//		hook.GetComponent<HookScript> ()._playerNum = playerNum;
-	//        hook.GetComponent<Rigidbody>().velocity = currForceDirection.normalized * hookSpeed;
-	//
-	//        yield return new WaitForSeconds(.7f);
-	//        hookTime = 0;
-	//        canMove = true;
-	//        isDisabled = false;
-	//    }
+		
 
 	public void hammerSomeone(Vector3 direction)
 	{
@@ -441,7 +438,16 @@ public class PlayerController : MonoBehaviour
 		isDisabled = false;
 	}
 
-
+	void moveAir(float hor, float ver) {
+		Vector3 AirTilt = new Vector3 (hor, 0, ver);
+		playerRB.AddForce (AirTilt * 10);
+		if (playerRB.velocity.x > maxVelocity) {
+			playerRB.velocity = new Vector3 (maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
+		}
+		if (playerRB.velocity.y > maxVelocity) {
+			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, maxVelocity);
+		}
+	}
 
 	void move(float hor, float ver)
 	{

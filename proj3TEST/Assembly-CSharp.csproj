@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Items\ItemDrop.cs" />
      <Compile Include="Assets\Scripts\Items\Weapon.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
      <Compile Include="Assets\Scripts\Maps and Tiles\Detector.cs" />
      <Compile Include="Assets\Scripts\Maps and Tiles\Hole.cs" />
      <Compile Include="Assets\Scripts\Maps and Tiles\IceTile.cs" />
