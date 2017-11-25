@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
 		gameStarted = false;
 		_mapChoice = 1;
 		playerCount = players.Length;
-
 		_MoveSpeedValue = 5;
 		_HitForceValue = 200;
 		_JumpForceValue = 200;
@@ -64,14 +63,24 @@ public class GameManager : MonoBehaviour
 		else if (gameManager != this) {
 			Destroy (gameObject);
 		}
-		if (gameStarted) {
-			mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
-			inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
-			mapHolder = GameObject.Find ("Map Holder");
+        //print(MapChoice);
+        //print("QUE");
+        //print(gameManager.gameStarted);
+        //print(gameStarted);
+		if (gameManager.gameStarted) {
+           // print("??");
+		    gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+			gameManager.inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
+			gameManager.mapHolder = GameObject.Find ("Map Holder");
 			time = 0;
 			Map m = Instantiate (map);
-			m.transform.name = "Map " + (_mapChoice + 1);
-			m.transform.SetParent (mapHolder.transform);
+			m.transform.name = "Map " + (gameManager._mapChoice + 1);
+			m.transform.SetParent (gameManager.mapHolder.transform);
+            for (int i = 0; i < 4; i++)
+            {
+                gameManager.players[i] = GameObject.Find("Player" + (i + 1));
+            }
+            m.SpawnMap(gameManager._mapChoice,4);
 			Debug.Log ("everything should be set up");
 		}
 
@@ -107,29 +116,29 @@ public class GameManager : MonoBehaviour
         time += .1f;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-			if (_mapChoice < mapHolder.transform.childCount)
+			if (gameManager._mapChoice < gameManager.mapHolder.transform.childCount)
             {
-				_mapChoice = (_mapChoice + 1) % MapLibrary.bitmaps.Length;
+				gameManager._mapChoice = (gameManager._mapChoice + 1) % MapLibrary.bitmaps.Length;
                 //selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
                 //ResetGame();
                 //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
 
                 //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(true);
-                ResetGame();
+                gameManager.ResetGame();
             }
             //SceneManager.LoadScene("main");
         }
         if (Input.GetKeyDown(KeyCode.E))
-            ResetGame();
+            gameManager.ResetGame();
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            playerCount = (playerCount + 1) % 5;
-            if (playerCount < 2)
-                playerCount = 2;
-            playersInGame = playerCount;
-            ResetGame();
+            gameManager.playerCount = (gameManager.playerCount + 1) % 5;
+            if (gameManager.playerCount < 2)
+                gameManager.playerCount = 2;
+            gameManager.playersInGame = gameManager.playerCount;
+            gameManager.ResetGame();
         }
-        if (playersInGame < 2)
+        if (gameManager.playersInGame < 2)
         {
 //            if (playersInGame == 0)
 ////                print("TIE");
@@ -145,62 +154,62 @@ public class GameManager : MonoBehaviour
     void ResetGame()
     {
         time = 0;
-//        for (int i = 0; i < mapHolder.transform.childCount; i++)
-//            mapHolder.transform.GetChild(i).gameObject.SetActive(i == selectedMap);
-		mapHolder.transform.GetChild (0).gameObject.SetActive (true);
-        foreach (Transform child in inGameParticlesAndEffects.transform)
+        //        for (int i = 0; i < mapHolder.transform.childCount; i++)
+        //            mapHolder.transform.GetChild(i).gameObject.SetActive(i == selectedMap);
+        //mapHolder.transform.GetChild (0).gameObject.SetActive (true);
+        foreach (Transform child in gameManager.inGameParticlesAndEffects.transform)
         {
             Destroy(child.gameObject);
         }
-		if (_mapChoice < mapHolder.transform.childCount)
-			mapHolder.transform.GetChild(_mapChoice).transform.GetComponent<Map>().Reset();
-        playersInGame = playerCount;
+		//if (gameManager._mapChoice < gameManager.mapHolder.transform.childCount)
+		gameManager.mapHolder.transform.GetChild(0).transform.GetComponent<Map>().Reset();
+        gameManager.playersInGame = gameManager.playerCount;
         for (int i = 0; i < 4; i++)
         {
-            players[i].SetActive(i < playerCount);
-            players[i].transform.GetComponent<PlayerController>().Reset();
+            gameManager.players[i].SetActive(i < gameManager.playerCount);
+            gameManager.players[i].transform.GetComponent<PlayerController>().Reset();
         }
         //GameObject.Find("Player" + (i + 1)).SetActive(true);
     }
 
 
 	public float MoveSpeedValue {
-		get {return _MoveSpeedValue;}
-		set {_MoveSpeedValue = value;}
+		get {return gameManager._MoveSpeedValue;}
+		set {gameManager._MoveSpeedValue = value;}
 	}
 
 	public float HitForceValue {
-		get {return _HitForceValue;}
-		set {_HitForceValue = value;}
+		get {return gameManager._HitForceValue;}
+		set {gameManager._HitForceValue = value;}
 	}
 
 	public float JumpForceValue {
-		get {return _JumpForceValue;}
-		set {_JumpForceValue = value;}
+		get {return gameManager._JumpForceValue;}
+		set {gameManager._JumpForceValue = value;}
 	}
 
 	public float HookDistance {
-		get {return _HookDistance;}
-		set {_HookDistance = value;}
+		get {return gameManager._HookDistance;}
+		set { gameManager._HookDistance = value;}
 	}
 
 	public float HookReloadTimeValue {
-		get {return _HookReloadTimeValue;}
-		set {_HookReloadTimeValue = value;}
+		get {return gameManager._HookReloadTimeValue;}
+		set { gameManager._HookReloadTimeValue = value;}
 	}
 
 	public float HammerReloadTimeValue {
-		get {return _HammerReloadTimeValue;}
-		set {_HammerReloadTimeValue = value;}
+		get {return gameManager._HammerReloadTimeValue;}
+		set { gameManager._HammerReloadTimeValue = value;}
 	}
 
 	public float ItemProbabilityValue {
-		get {return _ItemProbabilityValue;}
-		set {_ItemProbabilityValue = value;}
+		get {return gameManager._ItemProbabilityValue;}
+		set { gameManager._ItemProbabilityValue = value;}
 	}
 
 	public int MapChoice {
-		get{ return _mapChoice; }
-		set { _mapChoice = value; }
+		get{ return gameManager._mapChoice; }
+		set { gameManager._mapChoice = value; }
 	}
 }

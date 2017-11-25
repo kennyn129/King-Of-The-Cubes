@@ -17,6 +17,7 @@ public class ChooseMap : MonoBehaviour {
 
 	public void LoadMap1 () {
 		gameManager.MapChoice = 0;
+        
 		loadGameScene ();
 	}
 
@@ -46,7 +47,9 @@ public class ChooseMap : MonoBehaviour {
 	}
 
 	void loadGameScene() {
-		gameManager.gameStarted = true;
-		SceneManager.LoadScene ("Main");
+		//GameManager.gameManager.gameStarted = true;
+
+        gameManager.gameStarted = true;
+        SceneManager.LoadScene ("Main");
 	}
 }

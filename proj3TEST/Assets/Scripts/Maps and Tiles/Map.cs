@@ -22,7 +22,7 @@ public class Map : MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
 
 		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager>();
@@ -31,20 +31,31 @@ public class Map : MonoBehaviour
         canSpawnItems = true;
         spawnItemTimes = new float[] { 20f, 50f, 120f };
 		spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];
-
-        Texture2D bitmap = MapLibrary.bitmaps[mapID];
-        width = bitmap.width;
-        height = bitmap.height;
-        int playerSpawn = 0;
         playerSpawnPoints = new GameObject[4];
         for (int i = 0; i < 4; i++)
             playerSpawnPoints[i] = transform.Find("Player Spawn " + (i + 1)).gameObject;
 
         tilesHolder = transform.Find("Tiles Holder").gameObject;
+        dim = 25;
+
+        //SetSuddenDeathTimeStamps3(20f);
+        //SetSuddenDeathTimeStamps2(0, 30f);
+        //        SetSuddenDeathTimeStamps1(0, 30f);
+        //SetSuddenDeathTimeStamps(0, 10f);
+    }
+
+    public void SpawnMap(int mapID, int playerCount)
+    {
+        print(mapID);
+        Texture2D bitmap = MapLibrary.bitmaps[mapID];
+        width = bitmap.width;
+        height = bitmap.height;
+        int playerSpawn = 0;
+        
         //itemDropHolder = transform.Find("ItemDrops Holder").gameObject;
         //        if (!mapManager)
         //            mapManager = this;
-        dim = 25;
+
         //mapLayout = new int[dim * dim];
         //for (int i = 0; i < dim * dim; i++)
         //{
@@ -176,11 +187,8 @@ public class Map : MonoBehaviour
                 }
             }
         }
-        //Reset();
-        //SetSuddenDeathTimeStamps3(20f);
-        //SetSuddenDeathTimeStamps2(0, 30f);
-        //        SetSuddenDeathTimeStamps1(0, 30f);
-        //SetSuddenDeathTimeStamps(0, 10f);
+        transform.name = "Map " + (mapID + 1);
+        Reset();
     }
 
     private void Update()
@@ -215,7 +223,6 @@ public class Map : MonoBehaviour
 
     public void Reset()
     {
-        //tiles.Reset();
         for (int i = 0; i < 4; i++)
             gameManager.players[i].transform.position =
                 new Vector3(playerSpawnPoints[i].transform.position.x,

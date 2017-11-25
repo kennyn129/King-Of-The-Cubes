@@ -232,31 +232,6 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			if (Input.GetKey(KeyCode.O))
-			{
-				Color color = new Color();
-				color.r = 255;
-				//Assign the changed color to the reset.
-				transform.GetComponent<Renderer>().material.color = color;
-				//transform.GetComponent<Renderer>().Material.Color = color;
-			}
-
-//			if (Input.GetButtonDown(itemControl))
-//			{
-//				Debug.Log("itemControl Button Pressed");
-//				if(items.Count > 0)
-//				if (items[0] != null)
-//				{
-//					if (items[0].Use(this) == 0)
-//					{
-//						print("DONE USING");
-//					}
-//				}
-//				else
-//				{
-//					print("no item");
-//				}
-//			}
 
 			if (Input.GetButtonDown(hammerControl) && hammerTime >= reloadHammer)
 			{
@@ -451,7 +426,6 @@ public class PlayerController : MonoBehaviour
 
 	void move(float hor, float ver)
 	{
-
 		//add movement to player
 		movement = new Vector3(hor, 0f, ver);
 		//movement = movement.normalized * currVelocity * moveDebuff;
