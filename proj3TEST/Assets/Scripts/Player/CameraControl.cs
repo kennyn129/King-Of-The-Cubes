@@ -12,21 +12,30 @@ public class CameraControl : MonoBehaviour
     private float m_ZoomSpeed;                      // Reference speed for the smooth damping of the orthographic size.
     private Vector3 m_MoveVelocity;                 // Reference velocity for the smooth damping of the position.
     private Vector3 m_DesiredPosition;              // The position the camera is moving towards.
+	private bool isCamActive = false;
 
 
     private void Awake()
     {
-        m_Camera = GetComponentInChildren<Camera>();
-        m_Targets = new Transform[4];
-        for(int i = 0; i < 4;i++)
-        {
-            m_Targets[i] = GameObject.Find("Player" + (i+1)).transform;
-        }
+        
     }
+
+	public void SetUpCamera() {
+		m_Camera = GetComponentInChildren<Camera>();
+		m_Targets = new Transform[4];
+		for(int i = 0; i < 4;i++)
+		{
+			m_Targets[i] = GameObject.Find("Player " + (i+1)).transform;
+		}
+		isCamActive = true;
+	}
 
 
     private void FixedUpdate()
     {
+		if (!isCamActive) {
+			return;
+		}
         // Move the camera towards a desired position.
         Move();
 

@@ -26,6 +26,15 @@ public class Settings : MonoBehaviour {
 
 	void Start() {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
+		MoveSpeed.value = gameManager.MoveSpeedValue;
+		HitForce.value = gameManager.HitForceValue;
+		HookDistance.value = gameManager.HookDistance;
+		HookReloadTime.value = gameManager.HookReloadTimeValue;
+		HammerReloadTime.value = gameManager.HammerReloadTimeValue;
+		ItemProbability.value = gameManager.ItemProbabilityValue;
+
+
+
 	}
 
 	void Update() {
@@ -37,13 +46,13 @@ public class Settings : MonoBehaviour {
 		_HammerReloadTimeValue = HammerReloadTime.value;
 		_ItemProbabilityValue = ItemProbability.value;
 
-		gameManager.MoveSpeedValue = 5 + 2 * _MoveSpeedValue ;
-		gameManager.HitForceValue = 200 + 50 *_HitForceValue;
-		gameManager.JumpForceValue = 200 + 50 * _JumpForceValue;
-		gameManager.HookDistance = 8 + 3 * _HookDistance;
-		gameManager.HookReloadTimeValue = 3 + _HookReloadTimeValue;
-		gameManager.HammerReloadTimeValue = 1.5f + _HammerReloadTimeValue;
-		gameManager.ItemProbabilityValue = 40 + 10 * _ItemProbabilityValue;
+		gameManager.MoveSpeedValue = _MoveSpeedValue ;
+		gameManager.HitForceValue = _HitForceValue;
+		gameManager.JumpForceValue = _JumpForceValue;
+		gameManager.HookDistance = _HookDistance;
+		gameManager.HookReloadTimeValue = _HookReloadTimeValue;
+		gameManager.HammerReloadTimeValue = _HammerReloadTimeValue;
+		gameManager.ItemProbabilityValue = _ItemProbabilityValue;
 	}
 
 	public void LoadMainMenu() {

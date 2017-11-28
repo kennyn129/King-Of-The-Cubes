@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
 		hasHook = true;
 	}
 
-	void Awake()
+	void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player" + playerNum.ToString());
 		playerRB = player.GetComponent<Rigidbody>();
@@ -154,10 +154,10 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void isGroundedCheck () {
-		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.5f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,.05f), -Vector3.up, 1.5f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.5f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.5f, floorLayer)) {
+		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.51f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,.05f), -Vector3.up, 1.51f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.51f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.51f, floorLayer)) {
 			isGrounded = true;
 		} else {
 			isGrounded = false;
@@ -370,8 +370,12 @@ public class PlayerController : MonoBehaviour
 
 		//		yield return new WaitForSeconds(.7f);
 		hookTime = 0;
-		//		canMove = true;
-		//		isDisabled = false;
+		canMove = true;
+		isDisabled = false;
+		Debug.Log ("Can Move = " + canMove);
+		Debug.Log ("isDisabled = " + isDisabled);
+		Debug.Log ("Max Velocity = " + maxVelocity);
+
 	}
 		
 
@@ -416,12 +420,12 @@ public class PlayerController : MonoBehaviour
 	void moveAir(float hor, float ver) {
 		Vector3 AirTilt = new Vector3 (hor, 0, ver);
 		playerRB.AddForce (AirTilt * 10);
-		if (playerRB.velocity.x > maxVelocity) {
-			playerRB.velocity = new Vector3 (maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
-		}
-		if (playerRB.velocity.y > maxVelocity) {
-			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, maxVelocity);
-		}
+//		if (playerRB.velocity.x > maxVelocity) {
+//			playerRB.velocity = new Vector3 (maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
+//		}
+//		if (playerRB.velocity.y > maxVelocity) {
+//			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, maxVelocity);
+//		}
 	}
 
 	void move(float hor, float ver)
@@ -580,4 +584,35 @@ public class PlayerController : MonoBehaviour
 		get { return _hasHook; }
 		set { _hasHook = value; }
 	}
+
+	public float MaxVelocity {
+		get { return maxVelocity; }
+		set { maxVelocity = value; }
+	}
+
+	public float HealthScalar {
+		get { return healthScalar; }
+		set { healthScalar = value; }
+	}
+
+	public float JumpForce {
+		get { return forceY; }
+		set { forceY = value; }
+	}
+
+	public float HookDistance {
+		get { return hookDistance; }
+		set { hookDistance = value; }
+	}
+
+	public float ReloadHook {
+		get { return reloadHook; }
+		set { reloadHook = value; }
+	}
+
+	public float ReloadHammer {
+		get { return reloadHammer; }
+		set { reloadHammer = value; }
+	}
+
 }

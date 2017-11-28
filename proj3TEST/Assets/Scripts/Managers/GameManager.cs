@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-	public bool gameStarted;
+	public bool gameStarted = false;
 
 	//Game Playtesting Variables
-	public float _MoveSpeedValue;
-	public float _HitForceValue;
-	public float _JumpForceValue;
-	public float _HookDistance;
-	public float _HookReloadTimeValue;
-	public float _HammerReloadTimeValue;
-	public float _ItemProbabilityValue;
+	private float _MoveSpeedValue = 0;
+	private float _HitForceValue = 0;
+	private float _JumpForceValue = 0;
+	private float _HookDistance = 0;
+	private float _HookReloadTimeValue = 0;
+	private float _HammerReloadTimeValue = 0;
+	private float _ItemProbabilityValue = 0;
 
 	//Map variables
 	public int _mapChoice;
@@ -40,20 +40,20 @@ public class GameManager : MonoBehaviour
 	int playerCount;
 	public int playersInGame;
 
-	void Start() {
-		if (gameManager == null)
-			gameManager = this;
-		gameStarted = false;
-		_mapChoice = 1;
-		playerCount = players.Length;
-		_MoveSpeedValue = 5;
-		_HitForceValue = 200;
-		_JumpForceValue = 200;
-		_HookDistance = 8;
-		_HookReloadTimeValue = 3;
-		_HammerReloadTimeValue = 1.5f;
-		_ItemProbabilityValue = 40;
-	}
+//	void Start() {
+//		if (gameManager == null)
+//			gameManager = this;
+//		gameStarted = false;
+//		_mapChoice = 1;
+//		playerCount = players.Length;
+//		_MoveSpeedValue = 5;
+//		_HitForceValue = 200;
+//		_JumpForceValue = 200;
+//		_HookDistance = 8;
+//		_HookReloadTimeValue = 3;
+//		_HammerReloadTimeValue = 1.5f;
+//		_ItemProbabilityValue = 40;
+//	}
 
     // Use this for initialization
     void Awake()
@@ -78,16 +78,29 @@ public class GameManager : MonoBehaviour
 			m.transform.SetParent (gameManager.mapHolder.transform);
             for (int i = 0; i < 4; i++)
             {
-                gameManager.players[i] = GameObject.Find("Player" + (i + 1));
-				PlayerController playerController = gameManager.players [i].GetComponent<PlayerController> ();
-				playerController.maxVelocity = _MoveSpeedValue;
-				playerController.healthScalar = _HitForceValue;
-				playerController.forceY = _JumpForceValue;
-				playerController.hookDistance = _HookDistance;
-				playerController.reloadHook = _HookReloadTimeValue;
-				playerController.reloadHammer = _HammerReloadTimeValue;
+				GameObject player = (GameObject)Instantiate (gameManager.players [i]);
+				player.transform.name = "Player " + (i + 1);
+				PlayerController playerController = player.GetComponent<PlayerController> ();
+				playerController.MaxVelocity = 5 + 2 *_MoveSpeedValue;
+				playerController.HealthScalar = 200 + 50 *_HitForceValue;
+				playerController.JumpForce = 200 + 50 *_JumpForceValue;
+				playerController.HookDistance = 8 + 3 * _HookDistance;
+				playerController.ReloadHook = 3 + _HookReloadTimeValue;
+				playerController.ReloadHammer = 1.5f + _HammerReloadTimeValue;
+				Debug.Log ("PlayerController = " + playerController);
+				Debug.Log("MaxVelocity = " + playerController.MaxVelocity);
+				Debug.Log("MaxVelocity should be " + _MoveSpeedValue);
+				Debug.Log("HealthScalar = " + playerController.HealthScalar);
+				Debug.Log("JumpForce = " + playerController.JumpForce);
+
+
+
             }
             m.SpawnMap(gameManager._mapChoice,4);
+			GameObject camHolder = GameObject.Find ("Camera Holder");
+			Debug.Log (camHolder);
+			CameraControl cam = camHolder.GetComponentInChildren<CameraControl> ();
+			cam.SetUpCamera ();
 			Debug.Log ("everything should be set up");
 		}
 
