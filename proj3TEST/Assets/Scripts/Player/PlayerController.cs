@@ -419,13 +419,19 @@ public class PlayerController : MonoBehaviour
 
 	void moveAir(float hor, float ver) {
 		Vector3 AirTilt = new Vector3 (hor, 0, ver);
-		playerRB.AddForce (AirTilt * 10);
-//		if (playerRB.velocity.x > maxVelocity) {
-//			playerRB.velocity = new Vector3 (maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
-//		}
-//		if (playerRB.velocity.y > maxVelocity) {
-//			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, maxVelocity);
-//		}
+		playerRB.AddForce (AirTilt * 15);
+		if (playerRB.velocity.x > maxVelocity) {
+			playerRB.velocity = new Vector3 (maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
+		} else if (playerRB.velocity.x < -maxVelocity) {
+			playerRB.velocity = new Vector3 (-maxVelocity, playerRB.velocity.y, playerRB.velocity.z);
+		}
+
+		if (playerRB.velocity.z > maxVelocity) {
+			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, maxVelocity);
+		} else if (playerRB.velocity.z < -maxVelocity) {
+			playerRB.velocity = new Vector3 (playerRB.velocity.x, playerRB.velocity.y, -maxVelocity);
+		}
+
 	}
 
 	void move(float hor, float ver)

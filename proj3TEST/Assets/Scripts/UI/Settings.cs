@@ -28,6 +28,7 @@ public class Settings : MonoBehaviour {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
 		MoveSpeed.value = gameManager.MoveSpeedValue;
 		HitForce.value = gameManager.HitForceValue;
+		JumpForce.value = gameManager.JumpForceValue;
 		HookDistance.value = gameManager.HookDistance;
 		HookReloadTime.value = gameManager.HookReloadTimeValue;
 		HammerReloadTime.value = gameManager.HammerReloadTimeValue;
