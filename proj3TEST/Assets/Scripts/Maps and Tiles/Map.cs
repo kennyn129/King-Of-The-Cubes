@@ -188,7 +188,12 @@ public class Map : MonoBehaviour
             }
         }
         transform.name = "Map " + (mapID + 1);
-        Reset();
+		for (int i = 0; i < 4; i++)
+			gameManager.players[i].transform.position =
+				new Vector3(playerSpawnPoints[i].transform.position.x,
+					1,
+					playerSpawnPoints[i].transform.position.z);
+//        Reset();
     }
 
     private void Update()

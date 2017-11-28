@@ -24,8 +24,8 @@ public class Settings : MonoBehaviour {
 
 	GameManager gameManager;
 
-	void Awake() {
-		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager> ();
+	void Start() {
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager> ();
 	}
 
 	void Update() {

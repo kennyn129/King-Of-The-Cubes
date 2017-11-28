@@ -79,6 +79,13 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 gameManager.players[i] = GameObject.Find("Player" + (i + 1));
+				PlayerController playerController = gameManager.players [i].GetComponent<PlayerController> ();
+				playerController.maxVelocity = _MoveSpeedValue;
+				playerController.healthScalar = _HitForceValue;
+				playerController.forceY = _JumpForceValue;
+				playerController.hookDistance = _HookDistance;
+				playerController.reloadHook = _HookReloadTimeValue;
+				playerController.reloadHammer = _HammerReloadTimeValue;
             }
             m.SpawnMap(gameManager._mapChoice,4);
 			Debug.Log ("everything should be set up");
