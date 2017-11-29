@@ -10,13 +10,13 @@ public class GameManager : MonoBehaviour
 	public bool gameStarted = false;
 
 	//Game Playtesting Variables
-	private float _MoveSpeedValue = 0;
-	private float _HitForceValue = 0;
-	private float _JumpForceValue = 0;
-	private float _HookDistance = 0;
-	private float _HookReloadTimeValue = 0;
-	private float _HammerReloadTimeValue = 0;
-	private float _ItemProbabilityValue = 0;
+	static float _MoveSpeedValue;
+	static float _HitForceValue;
+	static float _JumpForceValue;
+	static float _HookDistance;
+	static float _HookReloadTimeValue;
+	static float _HammerReloadTimeValue;
+	static float _ItemProbabilityValue;
 
 	//Map variables
 	public int _mapChoice;
@@ -63,10 +63,15 @@ public class GameManager : MonoBehaviour
 		else if (gameManager != this) {
 			Destroy (gameObject);
 		}
-        //print(MapChoice);
-        //print("QUE");
-        //print(gameManager.gameStarted);
-        //print(gameStarted);
+		Debug.Log ("Movespeed = " + _MoveSpeedValue);
+		Debug.Log ("HitForce = " + _HitForceValue);
+		Debug.Log ("JumpForce = " + _JumpForceValue);
+		Debug.Log ("HookDistance = " + _HookDistance);
+		Debug.Log ("HookReloadTime = " + _HookReloadTimeValue);
+		Debug.Log ("HammerReloadTime = " + _HammerReloadTimeValue);
+
+
+
 		if (gameManager.gameStarted) {
            // print("??");
 		    gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
@@ -82,8 +87,8 @@ public class GameManager : MonoBehaviour
 				player.transform.name = "Player " + (i + 1);
 				PlayerController playerController = player.GetComponent<PlayerController> ();
 				playerController.MaxVelocity = 5 + 2 *_MoveSpeedValue;
-				playerController.HealthScalar = 200 + 50 *_HitForceValue;
-				playerController.JumpForce = 200 + 50 *_JumpForceValue;
+				playerController.HealthScalar = 200 + 75 *_HitForceValue;
+				playerController.JumpForce = 200 + 100 *_JumpForceValue;
 				playerController.HookDistance = 8 + 3 * _HookDistance;
 				playerController.ReloadHook = 3 + _HookReloadTimeValue;
 				playerController.ReloadHammer = 1.5f + _HammerReloadTimeValue;
@@ -134,30 +139,30 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         time += .1f;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			if (gameManager._mapChoice < gameManager.mapHolder.transform.childCount)
-            {
-				gameManager._mapChoice = (gameManager._mapChoice + 1) % MapLibrary.bitmaps.Length;
-                //selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
-                //ResetGame();
-                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
-
-                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(true);
-                gameManager.ResetGame();
-            }
-            //SceneManager.LoadScene("main");
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-            gameManager.ResetGame();
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            gameManager.playerCount = (gameManager.playerCount + 1) % 5;
-            if (gameManager.playerCount < 2)
-                gameManager.playerCount = 2;
-            gameManager.playersInGame = gameManager.playerCount;
-            gameManager.ResetGame();
-        }
+//        if (Input.GetKeyDown(KeyCode.Space))
+//        {
+//			if (gameManager._mapChoice < gameManager.mapHolder.transform.childCount)
+//            {
+//				gameManager._mapChoice = (gameManager._mapChoice + 1) % MapLibrary.bitmaps.Length;
+//                //selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
+//                //ResetGame();
+//                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
+//
+//                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(true);
+//                gameManager.ResetGame();
+//            }
+//            //SceneManager.LoadScene("main");
+//        }
+//        if (Input.GetKeyDown(KeyCode.E))
+//            gameManager.ResetGame();
+//        if (Input.GetKeyDown(KeyCode.Backspace))
+//        {
+//            gameManager.playerCount = (gameManager.playerCount + 1) % 5;
+//            if (gameManager.playerCount < 2)
+//                gameManager.playerCount = 2;
+//            gameManager.playersInGame = gameManager.playerCount;
+//            gameManager.ResetGame();
+//        }
         if (gameManager.playersInGame < 2)
         {
 //            if (playersInGame == 0)
@@ -194,38 +199,38 @@ public class GameManager : MonoBehaviour
 
 
 	public float MoveSpeedValue {
-		get {return gameManager._MoveSpeedValue;}
-		set {gameManager._MoveSpeedValue = value;}
+		get {return GameManager._MoveSpeedValue;}
+		set {GameManager._MoveSpeedValue = value;}
 	}
 
 	public float HitForceValue {
-		get {return gameManager._HitForceValue;}
-		set {gameManager._HitForceValue = value;}
+		get {return GameManager._HitForceValue;}
+		set {GameManager._HitForceValue = value;}
 	}
 
 	public float JumpForceValue {
-		get {return gameManager._JumpForceValue;}
-		set {gameManager._JumpForceValue = value;}
+		get {return GameManager._JumpForceValue;}
+		set {GameManager._JumpForceValue = value;}
 	}
 
 	public float HookDistance {
-		get {return gameManager._HookDistance;}
-		set { gameManager._HookDistance = value;}
+		get {return GameManager._HookDistance;}
+		set { GameManager._HookDistance = value;}
 	}
 
 	public float HookReloadTimeValue {
-		get {return gameManager._HookReloadTimeValue;}
-		set { gameManager._HookReloadTimeValue = value;}
+		get {return GameManager._HookReloadTimeValue;}
+		set { GameManager._HookReloadTimeValue = value;}
 	}
 
 	public float HammerReloadTimeValue {
-		get {return gameManager._HammerReloadTimeValue;}
-		set { gameManager._HammerReloadTimeValue = value;}
+		get {return GameManager._HammerReloadTimeValue;}
+		set { GameManager._HammerReloadTimeValue = value;}
 	}
 
 	public float ItemProbabilityValue {
-		get {return gameManager._ItemProbabilityValue;}
-		set { gameManager._ItemProbabilityValue = value;}
+		get {return GameManager._ItemProbabilityValue;}
+		set { GameManager._ItemProbabilityValue = value;}
 	}
 
 	public int MapChoice {

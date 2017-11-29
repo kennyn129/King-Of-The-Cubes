@@ -201,7 +201,7 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Q) || (spawnItemTimeStamp <= GameManager.time && canSpawnItems))
+		if (spawnItemTimeStamp <= GameManager.time && canSpawnItems)
         {
             SpawnItem();
 			spawnItemTimeStamp = GameManager.time + spawnItemTimes[itemSpawnFrequency];

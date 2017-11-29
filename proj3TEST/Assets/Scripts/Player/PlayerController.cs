@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
 		hookControl = "Hook" + playerNum.ToString();
 		breakGroundControl = "BreakGround" + playerNum.ToString();
 		jumpControl = "Jump" + playerNum.ToString ();
-//		itemControl = "item" + playerNum.ToString ();
+		itemControl = "ItemControl" + playerNum.ToString ();
 
 		//items = new Item[2];
 
@@ -221,11 +221,11 @@ public class PlayerController : MonoBehaviour
 		hookTime += Time.deltaTime;
 
 		isGroundedCheck();
-		/*moveHorizontal = Input.GetAxis(horizontalAxis);
-        moveVertical = Input.GetAxis(verticalAxis);*/
+		moveHorizontal = Input.GetAxis(horizontalAxis);
+        moveVertical = Input.GetAxis(verticalAxis);
 
-		moveHorizontal = Input.GetAxisRaw(horizontalAxis);
-		moveVertical = Input.GetAxisRaw(verticalAxis);
+//		moveHorizontal = Input.GetAxisRaw(horizontalAxis);
+//		moveVertical = Input.GetAxisRaw(verticalAxis);
 		if (isDisabled)
 		{
 			return;
@@ -366,7 +366,9 @@ public class PlayerController : MonoBehaviour
 
 		GameObject hook = (GameObject)Instantiate(hookPrefab, hitOrigin.position, transform.rotation);
 		hook.GetComponent<HookScript> ()._playerNum = playerNum;
+		hook.GetComponent<HookScript> ().maxDistance = hookDistance;
 		hook.GetComponent<Rigidbody>().velocity = shootOut.normalized * hookSpeed;
+
 
 		//		yield return new WaitForSeconds(.7f);
 		hookTime = 0;
@@ -400,7 +402,7 @@ public class PlayerController : MonoBehaviour
 		healthScalar += 5f;
 
 		playerRB.AddForce(forceVector);
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(.1f);
 		isDisabled = false;
 		canMove = true;
 	}
@@ -413,7 +415,7 @@ public class PlayerController : MonoBehaviour
 		Vector3 forceVector = direction * 500;
 
 		playerRB.AddForce(forceVector);
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(.8f);
 		isDisabled = false;
 	}
 

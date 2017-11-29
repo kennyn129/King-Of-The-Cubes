@@ -60,7 +60,9 @@ public class HookScript : MonoBehaviour {
 
 		destination = coll.gameObject.GetComponent<Rigidbody> ().position;
 		pullForce = origin - destination;
+		pullForce = new Vector3 (pullForce.x, 0, pullForce.z);
 		pullForce = pullForce.normalized;
+		Debug.Log ("pullforce = " + pullForce);
 		playerScript.hookSomeone (pullForce);
 		hookRB.velocity = Vector3.zero;
 		hookOwner.hasHook = true;
