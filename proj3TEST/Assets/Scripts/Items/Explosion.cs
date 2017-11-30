@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour {
     public float explosionDuration, activeTimeStamp, growthRate;
-
+    public AudioSource audioSource;
+    public AudioClip explosionSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
@@ -36,9 +37,14 @@ public class Explosion : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        audioSource = GetComponent<AudioSource>();
         explosionDuration = 5f;
         activeTimeStamp = explosionDuration + GameManager.time;
         growthRate = .2f;
+
+        //audioSource.Stop();
+        audioSource.clip = explosionSound;
+        audioSource.Play();
     }
 	
 	// Update is called once per frame

@@ -26,6 +26,22 @@ public class Amethyst : Item
         return UpdateUse(p);
     }
 
+    public override void Blink(float percentageOfTime)
+    {
+        Renderer r = transform.GetChild(0).GetComponent<Renderer>();
+        if (r)
+        {
+            Color c = r.material.color;
+            float blinkFrequency = .9f;
+            if (percentageOfTime / .35f < .5f)
+                blinkFrequency = .7f;
+            c.a += alternateFade * (1 - blinkFrequency);
+            if (c.a <= 0 || c.a >= 1)
+                alternateFade *= -1;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = c;
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -42,5 +58,6 @@ public class Amethyst : Item
         {
             Destroy(gameObject);
         }
+        transform.GetChild(0).gameObject.SetActive(!taken);
     }
 }

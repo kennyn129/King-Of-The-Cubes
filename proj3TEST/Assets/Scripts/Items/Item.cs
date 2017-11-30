@@ -39,24 +39,28 @@ public abstract class Item : MonoBehaviour
         }
     }
 
-    void Blink(float percentageOfTime)
+    public virtual void Blink(float percentageOfTime)
     {
-        Color c = transform.GetComponent<Renderer>().material.color;
-        float blinkFrequency = .9f;
-        if (percentageOfTime / .35f < .5f)
-            blinkFrequency = .7f;
-        c.a += alternateFade * (1 - blinkFrequency);
-        if (c.a <= 0 || c.a >= 1)
-            alternateFade *= -1;
-        transform.GetComponent<Renderer>().material.color = c;
+        Renderer r = transform.GetComponent<Renderer>();
+        if (r)
+        {
+            Color c = r.material.color;
+            float blinkFrequency = .9f;
+            if (percentageOfTime / .35f < .5f)
+                blinkFrequency = .7f;
+            c.a += alternateFade * (1 - blinkFrequency);
+            if (c.a <= 0 || c.a >= 1)
+                alternateFade *= -1;
+            
+            transform.GetComponent<Renderer>().material.color = c;
+        }
     }
+    
 
     protected void OnTriggerEnter(Collider other)
     {
-        print("?");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            print("z");
             PlayerController p = other.transform.GetComponent<PlayerController>();
             Interaction(p);
         }
@@ -70,10 +74,10 @@ public abstract class Item : MonoBehaviour
             if (p.items.Count == 0)
             {
                 p.items.Add(this);
-                transform.GetComponent<MeshRenderer>().enabled = false;
-                Color c = transform.GetComponent<Renderer>().material.color;
-                c.a = 1;
-                transform.GetComponent<Renderer>().material.color = c;
+                //transform.GetComponent<MeshRenderer>().enabled = false;
+                //Color c = transform.GetComponent<Renderer>().material.color;
+                //c.a = 1;
+                //transform.GetComponent<Renderer>().material.color = c;
             }
             else
             {

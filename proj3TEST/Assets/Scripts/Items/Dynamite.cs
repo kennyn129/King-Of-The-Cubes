@@ -11,7 +11,8 @@ public class Dynamite : Item
     public GameObject explosionPrefab;
 
 	public AudioSource audioSource;
-	public AudioClip explosionSound;
+	public AudioClip explosionTimerSound;
+    public bool lightedUp;
 
 
     // Use this for initialization
@@ -24,7 +25,40 @@ public class Dynamite : Item
         uses = 1;
         timeBeforeExplosion = 15f;
         activate = false;
+        lightedUp = false;
         taken = false;
+    }
+
+    public override void Blink(float percentageOfTime)
+    {
+        Renderer r = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        if (r)
+        {
+            Color c = r.material.color;
+            float blinkFrequency = .9f;
+            if (percentageOfTime / .35f < .5f)
+                blinkFrequency = .7f;
+            c.a += alternateFade * (1 - blinkFrequency);
+            if (c.a <= 0 || c.a >= 1)
+                alternateFade *= -1;
+            foreach (Transform child in transform.GetChild(0))
+                child.GetComponent<Renderer>().material.color = c;
+        }
+    }
+
+    public IEnumerator LightItUp()
+    {
+        //transform.GetChild(0).gameObject.SetActive(true);// = true;
+       
+        lightedUp = true;
+        audioSource.clip = explosionTimerSound;
+        audioSource.Play();
+        yield return new WaitForSeconds(explosionTimerSound.length);
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = transform.position;
+        explosion.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
+
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -35,35 +69,34 @@ public class Dynamite : Item
         {
             Destroy(gameObject);
         }
-        if (activate)
-        {
-            if (activeTimeStamp < GameManager.time)
-            {
-				audioSource.Stop ();
-				audioSource.clip = explosionSound;
-				audioSource.Play ();
+        transform.GetChild(0).gameObject.SetActive(lightedUp || !taken);
+        //if (activate)
+        //{
+            //StartCoroutine(LightItUp());
+            //audioSource.Stop();
+        //    if (activeTimeStamp < GameManager.time)
+        //    {
                 //transform.GetComponent<SphereCollider>().enabled = true;
 
                 //if (activeTimeStamp + explosionDuration < GameManager.time)
                 //{
-                GameObject explosion = Instantiate(explosionPrefab);
-                explosion.transform.position = transform.position;
-                explosion.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
-
-                Destroy(gameObject, 2f);
+                
                 //}
-            }
-        }
+        //    }
+        //}
     }
 
     public override int Use(PlayerController p)
     {
 
-        transform.GetComponent<MeshRenderer>().enabled = true;
+        //transform.GetComponent<MeshRenderer>().enabled = true;
         transform.position = p.transform.position;
 
         activeTimeStamp = GameManager.time + timeBeforeExplosion;
         transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
-        return UpdateUse(p);
+        //transform.GetChild(0).gameObject.SetActive(true);
+        int usages = UpdateUse(p);
+        StartCoroutine(LightItUp());
+        return usages;
     }
 }

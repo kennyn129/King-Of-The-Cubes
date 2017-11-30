@@ -9,7 +9,7 @@ public class GlueBomb : Item
     public float y, x, gravity;
 
 	public AudioSource audioSource;
-	public AudioClip glueSound;
+	public AudioClip jarBreakSound;
 
     protected override void Start()
     {
@@ -25,11 +25,40 @@ public class GlueBomb : Item
 		audioSource = GetComponent<AudioSource> ();
 
     }
-
+    
     private void FixedUpdate()
     {
         if (activate)
             transform.GetComponent<Rigidbody>().AddForce(new Vector3(0, -gravity, 0));
+    }
+
+    public override void Blink(float percentageOfTime)
+    {
+        Renderer r = transform.GetChild(0).GetComponent<Renderer>();
+        if (r)
+        {
+            Color c = r.material.color;
+            float blinkFrequency = .9f;
+            if (percentageOfTime / .35f < .5f)
+                blinkFrequency = .7f;
+            c.a += alternateFade * (1 - blinkFrequency);
+            if (c.a <= 0 || c.a >= 1)
+                alternateFade *= -1;
+            transform.GetChild(0).GetComponent<Renderer>().material.color = c;
+        }
+    }
+
+    public IEnumerator BreakJar()
+    {
+        Color c = new Color();
+        c.a = 0;
+        GetComponent<Renderer>().material.color = c;
+        GetComponent<CapsuleCollider>().enabled = false;
+        audioSource.Stop();
+        audioSource.clip = jarBreakSound;
+        audioSource.Play();
+        yield return new WaitForSeconds(jarBreakSound.length);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -40,11 +69,10 @@ public class GlueBomb : Item
         {
             Destroy(gameObject);
         }
+
+        transform.GetChild(0).gameObject.SetActive(activate || !taken);
         if (activate)
         {
-			audioSource.Stop ();
-			audioSource.clip = glueSound;
-			audioSource.Play ();
             //transform.GetComponent<Rigidbody>().velocity = new Vector3(x,y,0);
             // transform.
             //y -= .4f;
@@ -66,8 +94,8 @@ public class GlueBomb : Item
             adhesive.transform.position = other.transform.position + new Vector3(0, .5f, 0);
             adhesive.transform.GetComponent<Adhesive>().tile = other.transform.GetComponent<Tile>();
             adhesive.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
-            Destroy(gameObject);
             activate = false;
+            StartCoroutine(BreakJar());
             //PlayerController p = other.transform.GetComponent<PlayerController>();
             //Interaction(p);
         }

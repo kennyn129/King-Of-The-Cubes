@@ -43,6 +43,11 @@ public class AmethystShard : MonoBehaviour
     public IEnumerator PlayAudio()
     {
         audioSource.Play();
+        Color c = new Color();
+        c.a = 0;
+        GetComponent<Renderer>().material.color = c;
+        GetComponent<BoxCollider>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
         yield return new WaitForSeconds(audioSource.clip.length);
         Destroy(gameObject);
     }
@@ -56,6 +61,7 @@ public class AmethystShard : MonoBehaviour
                 //float[] angle = new float[] { 30, 40, 50, 60,70 };
 
                 int shards = Random.Range(minShards, maxShards);
+                shards = 5;
                 for (int i = 0; i < shards; i++)
                 {
                     GameObject shard = Instantiate(amethystShardPrefab);
@@ -92,7 +98,10 @@ public class AmethystShard : MonoBehaviour
 
             Vector3 newDir = new Vector3(dir.x * 50, 10, dir.z * 50);
             other.transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * 500 * (1 + fragmentCount));
-
+            PlayerController p = other.transform.GetComponent<PlayerController>();
+            //p.audioSource.Stop();
+            p.audioSource.clip = p.hitSound;
+            p.audioSource.Play();
             Destroy(gameObject);
         }
     }

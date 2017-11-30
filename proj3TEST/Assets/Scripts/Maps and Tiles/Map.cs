@@ -206,7 +206,7 @@ public class Map : MonoBehaviour
         if (availableTiles.Count > 0)
         {
             int item = Random.Range(0, itemDropPrefabs.Length);
-            GameObject itemDrop = Instantiate(itemDropPrefabs[2]);
+            GameObject itemDrop = Instantiate(itemDropPrefabs[item]);
             GameObject tile = availableTiles[Random.Range(0, availableTiles.Count)];
             itemDrop.transform.position = new Vector3(tile.transform.position.x, 1, tile.transform.transform.position.z);
             itemDrop.transform.SetParent(tile.transform);
