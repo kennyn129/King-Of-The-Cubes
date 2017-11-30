@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 	bool reset;
 
 	//private variables and internal timers
-	bool isAlive;
+	public bool isAlive;
 	bool canMove;
 	bool isDisabled;
 	bool isGrounded;
@@ -232,7 +232,8 @@ public class PlayerController : MonoBehaviour
 		}
 		if (transform.position.y <=-30) {
 
-			GameManager.gameManager.playersInGame--;
+//			GameManager.gameManager.playersInGame--;
+			GameManager.gameManager.playerDeath ();
 			gameObject.SetActive(false);
 		}
 

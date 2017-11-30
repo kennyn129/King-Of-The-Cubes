@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
 	public int _mapChoice;
 	public int selectedMap;
 	public Map map;
+	bool isGameOver;
 
 
 
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
 	public GameObject mapHolder;
 	public Item[] items;
 	public static float time;
-
+	public Text winText;
 
 	//For Initializing players
 	public GameObject[] players;
@@ -62,18 +64,15 @@ public class GameManager : MonoBehaviour
 		else if (gameManager != this) {
 			Destroy (gameObject);
 		}
-		Debug.Log ("Movespeed = " + _MoveSpeedValue);
-		Debug.Log ("HitForce = " + _HitForceValue);
-		Debug.Log ("JumpForce = " + _JumpForceValue);
-		Debug.Log ("HookDistance = " + _HookDistance);
-		Debug.Log ("HookReloadTime = " + _HookReloadTimeValue);
-		Debug.Log ("HammerReloadTime = " + _HammerReloadTimeValue);
 
 
 
 		if (gameManager.gameStarted) {
            // print("??");
 		    //gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+			isGameOver = false;
+			winText = GameObject.Find("Canvas").GetComponentInChildren<Text>();
+			winText.gameObject.SetActive (false);
 			gameManager.inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
 			gameManager.mapHolder = GameObject.Find ("Map Holder");
 			time = 0;
@@ -83,6 +82,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
 				GameObject player = (GameObject)Instantiate (gameManager.players [i]);
+				gameManager.players [i] = player;
 				player.transform.name = "Player " + (i + 1);
 				PlayerController playerController = player.GetComponent<PlayerController> ();
 				playerController.MaxVelocity = 5 + 2 *_MoveSpeedValue;
@@ -91,21 +91,15 @@ public class GameManager : MonoBehaviour
 				playerController.HookDistance = 8 + 3 * _HookDistance;
 				playerController.ReloadHook = 3 + _HookReloadTimeValue;
 				playerController.ReloadHammer = 1.5f + _HammerReloadTimeValue;
-				Debug.Log ("PlayerController = " + playerController);
-				Debug.Log("MaxVelocity = " + playerController.MaxVelocity);
-				Debug.Log("MaxVelocity should be " + _MoveSpeedValue);
-				Debug.Log("HealthScalar = " + playerController.HealthScalar);
-				Debug.Log("JumpForce = " + playerController.JumpForce);
 
-
+				gameManager.playersInGame += 1;
+				Debug.Log ("playercount = " + gameManager.playersInGame);
 
             }
             m.SpawnMap(gameManager._mapChoice,4);
 			GameObject camHolder = GameObject.Find ("Camera Holder");
-			Debug.Log (camHolder);
 			CameraControl cam = camHolder.GetComponentInChildren<CameraControl> ();
 			cam.SetUpCamera ();
-			Debug.Log ("everything should be set up");
 		}
 
 
@@ -134,46 +128,44 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad (this);
     }
 
+	public void playerDeath() {
+		gameManager.playersInGame -= 1;
+		if (gameManager.playersInGame < 2 && !isGameOver)
+		{
+			if (gameManager.playersInGame == 0) {
+				winText.text = "Tie!";
+				winText.gameObject.SetActive (true);
+			}
+			else{
+				
+				for (int i = 0; i < gameManager.players.Length; i++) {
+					Debug.Log (gameManager.players [i]);
+					Debug.Log (gameManager.players [i].GetComponent < PlayerController> ().IsAlive);
+					if (gameManager.players[i].GetComponent<PlayerController>().IsAlive) {
+						winText.gameObject.SetActive (true);
+						winText.text = "Player " + gameManager.players [i].GetComponent<PlayerController> ().playerNum + " Wins!";
+						break;
+					}
+				}
+			}
+			isGameOver = true;
+			StartCoroutine (BackToMainMenu ());
+		}	
+	}
+
     // Update is called once per frame
     void Update()
     {
         time += .1f;
-//        if (Input.GetKeyDown(KeyCode.Space))
-//        {
-//			if (gameManager._mapChoice < gameManager.mapHolder.transform.childCount)
-//            {
-//				gameManager._mapChoice = (gameManager._mapChoice + 1) % MapLibrary.bitmaps.Length;
-//                //selectedMap = (selectedMap + 1) % MapLibrary.mapCount;
-//                //ResetGame();
-//                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(false);
-//
-//                //mapHolder.transform.GetChild(selectedMap).gameObject.SetActive(true);
-//                gameManager.ResetGame();
-//            }
-//            //SceneManager.LoadScene("main");
-//        }
-//        if (Input.GetKeyDown(KeyCode.E))
-//            gameManager.ResetGame();
-//        if (Input.GetKeyDown(KeyCode.Backspace))
-//        {
-//            gameManager.playerCount = (gameManager.playerCount + 1) % 5;
-//            if (gameManager.playerCount < 2)
-//                gameManager.playerCount = 2;
-//            gameManager.playersInGame = gameManager.playerCount;
-//            gameManager.ResetGame();
-//        }
-        //if (gameManager.playersInGame < 2)
-        //{
-//            if (playersInGame == 0)
-////                print("TIE");
-//			else{
-//				Debug.Log("one winner");
-//
-//			}
-////            ResetGame();
-        //}
-        // SceneManager.LoadScene("main");
+
     }
+
+	IEnumerator BackToMainMenu() {
+		gameManager.isGameOver = false;
+		gameManager.gameStarted = false;
+		yield return new WaitForSeconds (3);
+		SceneManager.LoadScene ("MainMenu");
+	}
 
     void ResetGame()
     {
