@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
 	public float healthScalar;
 	public float forceY;
 
+	public AudioSource audioSource;
+	public AudioClip hammerSound;
+	public AudioClip hookSound;
+	public AudioClip hitSound;
+	public AudioClip deadSound;
+
+
 	//Unity Components
 	public GameObject hookPrefab;
 	public GameObject hookItemPrefab;
@@ -27,13 +34,14 @@ public class PlayerController : MonoBehaviour
 	GameObject player;
 	Rigidbody playerRB;
 	CapsuleCollider playerCollider;
+	CameraControl cam;
 
 	// Holds player's useable items
 	public List<Item> items;
 	bool reset;
 
 	//private variables and internal timers
-
+	bool isAlive;
 	bool canMove;
 	bool isDisabled;
 	bool isGrounded;
@@ -108,6 +116,12 @@ public class PlayerController : MonoBehaviour
 		floorLayer = LayerMask.GetMask("Floor");
 		hitOrigin = transform.GetChild (1);
 		hitOrigin.localPosition = new Vector3 (0, 3.5f, 0);
+		items = new List<Item>();
+		GameObject camHolder = GameObject.Find ("Camera Holder");
+		cam = camHolder.GetComponentInChildren<CameraControl> ();
+		audioSource = GetComponent<AudioSource> ();
+
+		isAlive = true;
 		reset = false;
 		isDisabled = false;
 		hammerTime = 0;
@@ -117,9 +131,7 @@ public class PlayerController : MonoBehaviour
 		placeHookTime = 0;
 		canMove = true;
 		currVelocity = maxVelocity;
-
 		focusedTile = null;
-		items = new List<Item>();
 		moveDebuff = 1;
 		team = playerNum;
 		/*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
@@ -211,8 +223,15 @@ public class PlayerController : MonoBehaviour
 
 
 
-		if (transform.position.y <= -30)
+		if (transform.position.y <= -5)
 		{
+			audioSource.Stop();
+			audioSource.clip = deadSound;
+			audioSource.Play ();
+			isAlive = false;
+		}
+		if (transform.position.y <=-30) {
+
 			GameManager.gameManager.playersInGame--;
 			gameObject.SetActive(false);
 		}
@@ -307,6 +326,10 @@ public class PlayerController : MonoBehaviour
 	void useHammer(float hor, float ver)
 	{
 		//anim.SetTrigger ("HammerHit");
+		audioSource.Stop();
+		audioSource.clip = hammerSound;
+		audioSource.Play ();
+
 		hammerTime = 0;
 		UseTheForce();
 		Vector3 shootOut;
@@ -354,6 +377,12 @@ public class PlayerController : MonoBehaviour
 		//		isDisabled = true;
 		//		canMove = false;
 		hasHook = false;
+
+		audioSource.Stop();
+		audioSource.clip = hookSound;
+		audioSource.Play ();
+
+
 		//anim.SetTrigger ("Hook");
 		UseTheForce();
 		// Instantiate hook prefab with a certain velocity
@@ -392,6 +421,12 @@ public class PlayerController : MonoBehaviour
 
 	public IEnumerator getHammered(Vector3 direction)
 	{
+
+		audioSource.Stop();
+		audioSource.clip = hitSound;
+		audioSource.Play ();
+
+
 		isDisabled = true;
 		canMove = false;
 		playerRB.velocity = Vector3.zero;
@@ -409,6 +444,10 @@ public class PlayerController : MonoBehaviour
 
 	public IEnumerator getHooked(Vector3 direction)
 	{
+		audioSource.Stop();
+		audioSource.clip = hitSound;
+		audioSource.Play ();
+
 		Debug.Log("In GetHooked");
 		Debug.Log(direction);
 		isDisabled = true;
@@ -621,6 +660,10 @@ public class PlayerController : MonoBehaviour
 	public float ReloadHammer {
 		get { return reloadHammer; }
 		set { reloadHammer = value; }
+	}
+
+	public bool IsAlive {
+		get { return isAlive; }
 	}
 
 }

@@ -9,9 +9,15 @@ public class AmethystShard : MonoBehaviour
     public int maxShards, minShards, fragmentCount, team;
     public Vector3 dir;
     float spread;
+
+	public AudioSource audioSource;
+	public AudioClip amethystSound;
     // Use this for initialization
     void Start()
     {
+		audioSource = GetComponent<AudioSource> ();
+		audioSource.clip = amethystSound;
+		audioSource.Play ();
         gravity = 20;
         minShards = 2;
         maxShards = 5;

@@ -8,6 +8,9 @@ public class GlueBomb : Item
     // Use this for initialization
     public float y, x, gravity;
 
+	public AudioSource audioSource;
+	public AudioClip glueSound;
+
     protected override void Start()
     {
         base.Start();
@@ -19,6 +22,8 @@ public class GlueBomb : Item
         y = 10f;
         x = 10f;
         gravity = 20;
+		audioSource = GetComponent<AudioSource> ();
+
     }
 
     private void FixedUpdate()
@@ -37,6 +42,9 @@ public class GlueBomb : Item
         }
         if (activate)
         {
+			audioSource.Stop ();
+			audioSource.clip = glueSound;
+			audioSource.Play ();
             //transform.GetComponent<Rigidbody>().velocity = new Vector3(x,y,0);
             // transform.
             //y -= .4f;

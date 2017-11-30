@@ -10,10 +10,15 @@ public class Dynamite : Item
     public float timeBeforeExplosion;
     public GameObject explosionPrefab;
 
+	public AudioSource audioSource;
+	public AudioClip explosionSound;
+
 
     // Use this for initialization
     protected override void Start()
     {
+		audioSource = GetComponent<AudioSource> ();
+
         base.Start();
         activate = false;
         uses = 1;
@@ -40,6 +45,9 @@ public class Dynamite : Item
         {
             if (activeTimeStamp < GameManager.time)
             {
+				audioSource.Stop ();
+				audioSource.clip = explosionSound;
+				audioSource.Play ();
                 //transform.GetComponent<SphereCollider>().enabled = true;
 
                 //if (activeTimeStamp + explosionDuration < GameManager.time)
@@ -48,7 +56,7 @@ public class Dynamite : Item
                 explosion.transform.position = transform.position;
                 explosion.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
 
-                Destroy(gameObject);
+                Destroy(gameObject, 2f);
                 //}
             }
         }
