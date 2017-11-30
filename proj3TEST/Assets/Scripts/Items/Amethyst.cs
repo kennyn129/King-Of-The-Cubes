@@ -23,7 +23,6 @@ public class Amethyst : Item
 
         newShard.transform.GetComponent<Rigidbody>().AddForce(dir * 300);
         newShard.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
-        //activeTimeStamp = GameManager.time + timeToLive;
         return UpdateUse(p);
     }
 
@@ -34,13 +33,6 @@ public class Amethyst : Item
         uses = 3;
         activate = false;
         taken = false;
-        //timeToLive = 30;
-        //uses = 2;
-        //timeToLive = 10;
-        //activeTimeStamp = GameManager.time + timeToLive;
-        //timeToLive = 20;
-        //explosionDuration = 5;
-        //activeTimeStamp = 0;// GameManager.time + timeToLive;
     }
 
     protected override void Update()
@@ -50,40 +42,5 @@ public class Amethyst : Item
         {
             Destroy(gameObject);
         }
-        //if (activate)
-        //{
-        //    if (activeTimeStamp < GameManager.time)
-        //    {
-        //transform.GetComponent<SphereCollider>().enabled = true;
-
-        //if (activeTimeStamp + explosionDuration < GameManager.time)
-        //{
-        //GameObject explosion = Instantiate(explosionPrefab);
-        //explosion.transform.position = transform.position;
-        //        Destroy(gameObject);
-        //}
-        //    }
-        //}
     }
-    /*
-    protected new void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
-        {
-            print("FLOOR");
-            print(other.transform.name);
-            Tile t = other.transform.GetComponent<Tile>();
-            t.Break();
-
-        }
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            Vector3 dir = other.transform.position - transform.position;
-            dir = new Vector3(dir.x, dir.y + 5, dir.z);
-            other.transform.GetComponent<Rigidbody>().AddForce(dir.normalized * 50);
-
-        }
-    }*/
 }

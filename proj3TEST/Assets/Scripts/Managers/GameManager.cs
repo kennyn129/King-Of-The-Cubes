@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
 
 	//Map variables
 	public int _mapChoice;
-	MapManager mapManager;
 	public int selectedMap;
 	public Map map;
 
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
 
 		if (gameManager.gameStarted) {
            // print("??");
-		    gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+		    //gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
 			gameManager.inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
 			gameManager.mapHolder = GameObject.Find ("Map Holder");
 			time = 0;
@@ -163,8 +162,8 @@ public class GameManager : MonoBehaviour
 //            gameManager.playersInGame = gameManager.playerCount;
 //            gameManager.ResetGame();
 //        }
-        if (gameManager.playersInGame < 2)
-        {
+        //if (gameManager.playersInGame < 2)
+        //{
 //            if (playersInGame == 0)
 ////                print("TIE");
 //			else{
@@ -172,7 +171,7 @@ public class GameManager : MonoBehaviour
 //
 //			}
 ////            ResetGame();
-        }
+        //}
         // SceneManager.LoadScene("main");
     }
 

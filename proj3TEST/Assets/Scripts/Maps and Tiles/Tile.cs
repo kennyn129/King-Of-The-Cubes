@@ -21,9 +21,7 @@ public class Tile : MonoBehaviour {
         c = transform.GetComponent<BoxCollider>();
         originalColor = transform.GetComponent<Renderer>().material.color;
         currentColor = originalColor;
-        //hole = transform.GetComponent<CircleCollider2D>();
         respawnTime = 40.0f;
-        //respawnTimeStamp = 0;
         floorSize = .32f;
         Reset();
     }
@@ -63,7 +61,6 @@ public class Tile : MonoBehaviour {
             currentColor = new Color(r, g, b) / ct;
         else
             currentColor = originalColor;
-        //transform.GetComponent<Renderer>().material.color = currentColor;
         transform.GetComponent<Renderer>().material.SetColor("_Color", currentColor);
        
     }
@@ -71,7 +68,6 @@ public class Tile : MonoBehaviour {
 
     public void SetRespawnTime()
     {
-        //print("res");
         respawnTimeStamp = GameManager.time + respawnTime;
     }
 

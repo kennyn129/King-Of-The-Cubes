@@ -6,7 +6,6 @@ using UnityEngine;
 public class Adhesive : MonoBehaviour {
     public Tile tile;
     public float timeToLive, activeTimeStamp, maxSize, destroyTimeStamp;
-    public int spread;
     public float stickyStrength;
     bool destroying;
     // Use this for initialization

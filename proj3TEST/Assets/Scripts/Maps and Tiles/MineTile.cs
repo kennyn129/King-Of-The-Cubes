@@ -8,12 +8,9 @@ public class MineTile : Tile {
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            print(collision.transform.name);
             int i = Random.Range(0, 100);
-            print(i);
             if (i <= 20)
             {
-                print("explode");
                 Break();
             }
         }
@@ -28,7 +25,6 @@ public class MineTile : Tile {
 
     public override void Break()
     {
-        print("boom");
         base.Break();
         Explode();
     }

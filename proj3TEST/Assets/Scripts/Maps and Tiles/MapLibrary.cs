@@ -237,6 +237,7 @@ public class MapLibrary : MonoBehaviour
     public static Hashtable colorToTileMap;
     public static Texture2D[] bitmaps;
     public static Hashtable movingTiles;
+    public static Hashtable movingTilesSizes;
     public static Hashtable teleportTiles;
 
 
@@ -258,6 +259,10 @@ public class MapLibrary : MonoBehaviour
         int[] tpConnections = new int[] { -1, 3, 0, -1, 17, 10, 10, 20, 0, 3, -1, 17, 20, 0, 10, 10, 3, -1, 20, 17, -1 };
         teleportTiles.Add(3, new List<int>(tpConnections));
 
+        // Map 5
+        tpConnections = new int[] { -1, 3, 0, -1, 17, 10, 10, 20, 0, 3, -1, 17, 20, 0, 10, 10, 3, -1, 20, 17, -1 };
+        teleportTiles.Add(4, new List<int>(tpConnections));
+
 
     }
 
@@ -269,7 +274,7 @@ public class MapLibrary : MonoBehaviour
          *  5 = Decay tile, 6 = ...
          *  7 = Mine tile, 8 = ...
          *  9 = Teleport tile, 10 = ???
-         *  11 = Moving tile, 11 = ...
+         *  11 = Moving tile, 12 = ...
     */
 
     void InstantiateColorToTileMapping()
@@ -283,37 +288,108 @@ public class MapLibrary : MonoBehaviour
         colorToTileMap["FFFFFF"] = 7;
         colorToTileMap["00FFFA"] = 9;
         colorToTileMap["FF0000"] = 11;
+        colorToTileMap["DD0000"] = 12;
         //colorToTileMap["FF0000"] = 6;
     }
 
+    /*
+     * When setting coordinates for moving tile, add to destinations list 
+     * reading the tiles from map top to bottom, left to right.
+     * Practically, the first set of coords is the original position (0,0,0)
+     * Every consecutive coord is with respect to the original position (x,y,z) tiles away
+     */
     void InstantiateMovingTiles()
     {
         movingTiles = new Hashtable();
+        movingTilesSizes = new Hashtable();
 
         // Map 5
-        List<List<int>> destinations = new List<List<int>>();
+        List<List<float>> destinations = new List<List<float>>();
+        movingTiles.Add(4, destinations);
+        float[] coords;
+        coords = new float[] { 0, 0, 0,
+                            -3, 0, 0,
+                            -3, 0, -5,
+                             2, 0, -5,
+                             2, 0, 0};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                             3, 0, 0,
+                             3, 0, -7,
+                             -4, 0, -7,
+                             -4, 0, 0};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                             0, 0, -2,
+                             5, 0, -2,
+                             5, 0, 3,
+                             0, 0, 3};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                             0, 0, 4,
+                             7, 0, 4,
+                             7, 0, -3,
+                             0, 0, -3};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { -1, 0, 0,
+                             -1, 0, -3,
+                             -8, 0, -3,
+                             -8, 0, 4,
+                             -1, 0, 4};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { -1, 0, 0,
+                             -1, 0, 3,
+                             -6, 0, 3,
+                             -6, 0, -2,
+                             -1, 0, -2};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 1,
+                             -4, 0, 1,
+                             -4, 0, 8,
+                             3, 0, 8,
+                             3, 0, 1};
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 1,
+                             2, 0, 1,
+                             2, 0, 6,
+                             -3, 0, 6,
+                             -3, 0, 1};
+        destinations.Add(new List<float>(coords));
+
+        List<Vector3> tileSizes = new List<Vector3>();
+        movingTilesSizes.Add(4, tileSizes);
+        for(int i = 0; i < 8; i++)
+            tileSizes.Add(new Vector3(2,1,2));
+
+
+
+        // Map 6
+        destinations = new List<List<float>>();
         movingTiles.Add(5, destinations);
-        int[] coords;
-        coords = new int[] { 0, 0, 0,
-                            24, 0, 0,
-                            24, 0, 24,
-                             0, 0, 24 };
-        destinations.Add(new List<int>(coords));
-        coords = new int[] { 0, 0, 0,
-                             0, 0, 24,
-                           -24, 0, 24,
-                           -24, 0, 0 };
-        destinations.Add(new List<int>(coords));
-        coords = new int[] { 0, 0, 0,
-                             0, 0, -24,
+        coords = new float[] { 0, 0, 0,
+                            0, 0, -24,
                             24, 0, -24,
-                            24, 0, 0 };
-        destinations.Add(new List<int>(coords));
-        coords = new int[] { 0, 0, 0,
-                           -24, 0, 0,
+                             24, 0, 0 };
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                             -24, 0, 0,
                            -24, 0, -24,
-                             0, 0, -24 };
-        destinations.Add(new List<int>(coords));
+                           0, 0, -24 };
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                             24, 0, 0,
+                            24, 0, 24,
+                            0, 0, 24 };
+        destinations.Add(new List<float>(coords));
+        coords = new float[] { 0, 0, 0,
+                           0, 0, 24,
+                           -24, 0, 24,
+                             -24, 0, 0 };
+        destinations.Add(new List<float>(coords));
+        tileSizes = new List<Vector3>();
+        movingTilesSizes.Add(5, tileSizes);
+        for (int i = 0; i < 4; i++)
+            tileSizes.Add(new Vector3(1, 1, 1));
     }
 
     public static int ColorToTile(Color32 c)

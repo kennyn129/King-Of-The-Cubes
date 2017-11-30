@@ -53,8 +53,10 @@ public abstract class Item : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
+        print("?");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            print("z");
             PlayerController p = other.transform.GetComponent<PlayerController>();
             Interaction(p);
         }
@@ -83,7 +85,6 @@ public abstract class Item : MonoBehaviour
 
     public int UpdateUse(PlayerController p)
     {
-        print("USING item");
         uses--;
         activate = true;
         //activeTimeStamp = GameManager.time + timeToLive;

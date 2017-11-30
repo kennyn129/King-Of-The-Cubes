@@ -291,7 +291,13 @@ public class PlayerController : MonoBehaviour
 				jump ();
 			}
 
-
+            if(playerNum == 1 && Input.GetKeyDown(KeyCode.P))
+            {
+                if(items.Count > 0)
+                {
+                    items[0].Use(this);
+                }
+            }
 			if (isGrounded && canMove) {
 				move (moveHorizontal, moveVertical);
 				rotateGround (currDirection);

@@ -25,12 +25,6 @@ public class Dynamite : Item
         timeBeforeExplosion = 15f;
         activate = false;
         taken = false;
-        //timeToLive = 30;
-        //uses = 2;
-        //timeToLive = 10;
-        //timeToLive = 20;
-        //explosionDuration = 5;
-        //activeTimeStamp = 0;// GameManager.time + timeToLive;
     }
 
     // Update is called once per frame

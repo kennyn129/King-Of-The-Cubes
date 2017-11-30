@@ -50,14 +50,7 @@ public class GlueBomb : Item
             //y -= .4f;
             if (activeTimeStamp < GameManager.time)
             {
-                //transform.GetComponent<SphereCollider>().enabled = true;
-
-                //if (activeTimeStamp + explosionDuration < GameManager.time)
-                //{
-                //GameObject explosion = Instantiate(explosionPrefab);
-                //explosion.transform.position = transform.position;
                 Destroy(gameObject);
-                //}
             }
         }
 

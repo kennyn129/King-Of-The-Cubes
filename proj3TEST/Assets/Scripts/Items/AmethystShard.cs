@@ -17,7 +17,7 @@ public class AmethystShard : MonoBehaviour
     {
 		audioSource = GetComponent<AudioSource> ();
 		audioSource.clip = amethystSound;
-		audioSource.Play ();
+		//audioSource.Play ();
         gravity = 20;
         minShards = 2;
         maxShards = 5;
@@ -40,6 +40,13 @@ public class AmethystShard : MonoBehaviour
         }
     }
 
+    public IEnumerator PlayAudio()
+    {
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
@@ -47,6 +54,7 @@ public class AmethystShard : MonoBehaviour
             if (fragmentCount > 0)
             {
                 //float[] angle = new float[] { 30, 40, 50, 60,70 };
+
                 int shards = Random.Range(minShards, maxShards);
                 for (int i = 0; i < shards; i++)
                 {
@@ -69,10 +77,13 @@ public class AmethystShard : MonoBehaviour
                     shard.transform.GetComponent<Rigidbody>().AddForce(200 * newDir);
                     shard.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
                 }
-                //Tile t = other.transform.GetComponent<Tile>();
-                //t.Break();
+
+                StartCoroutine(PlayAudio());
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
@@ -83,18 +94,6 @@ public class AmethystShard : MonoBehaviour
             other.transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * 500 * (1 + fragmentCount));
 
             Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
-            other.transform.GetComponent<PlayerController>().team != team)
-        {
-
-            //Vector3 newDir = new Vector3(dir.x * 45, dir.y * 5, dir.z * 45);
-            //other.transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * 200 * (1 + fragmentCount));
-
         }
     }
 }

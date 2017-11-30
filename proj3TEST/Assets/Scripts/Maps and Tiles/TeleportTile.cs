@@ -16,7 +16,6 @@ public class TeleportTile : Tile {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") 
             && active && receiver && receiver.transform.GetComponent<TeleportTile>().active)
         {
-            print("TP PLAYER");
             collision.transform.position = receiver.transform.position + new Vector3(0, .2f, 0);
         }
     }
@@ -28,7 +27,6 @@ public class TeleportTile : Tile {
 
     public override void Break()
     {
-        //print("CAnt break");
         base.Break();
 
         if (receiver)
@@ -58,7 +56,6 @@ public class TeleportTile : Tile {
         {
             ChangeColor();
         }
-        //base.Update();
 
     }
 }
