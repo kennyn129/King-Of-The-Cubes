@@ -91,6 +91,7 @@ public class Map : MonoBehaviour
                     else if (k == 6)
                     {
                         movingTiles.Add(tile);
+						tile.transform.position += new Vector3 (0, 1.5f, 0);
                     }
                 }
             }

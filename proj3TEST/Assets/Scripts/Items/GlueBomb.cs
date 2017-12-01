@@ -91,7 +91,7 @@ public class GlueBomb : Item
         if (activate && other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             GameObject adhesive = Instantiate(adhesivePrefab);
-            adhesive.transform.position = other.transform.position + new Vector3(0, .5f, 0);
+            adhesive.transform.position = other.transform.position + new Vector3(0, 2f, 0);
             adhesive.transform.GetComponent<Adhesive>().tile = other.transform.GetComponent<Tile>();
             adhesive.transform.SetParent(GameManager.gameManager.inGameParticlesAndEffects.transform);
             activate = false;
