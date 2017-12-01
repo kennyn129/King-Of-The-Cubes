@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
            // print("??");
 		    //gameManager.mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
 			isGameOver = false;
-			winText = GameObject.Find("Canvas").GetComponentInChildren<Text>();
-			winText.gameObject.SetActive (false);
+			gameManager.winText = GameObject.Find("Canvas").GetComponentInChildren<Text>();
+			gameManager.winText.gameObject.SetActive (false);
 			gameManager.inGameParticlesAndEffects = GameObject.Find("InGame Particles and Effects");
 			gameManager.mapHolder = GameObject.Find ("Map Holder");
 			time = 0;
@@ -133,8 +133,8 @@ public class GameManager : MonoBehaviour
 		if (gameManager.playersInGame < 2 && !isGameOver)
 		{
 			if (gameManager.playersInGame == 0) {
-				winText.text = "Tie!";
-				winText.gameObject.SetActive (true);
+				gameManager.winText.text = "Tie!";
+				gameManager.winText.gameObject.SetActive (true);
 			}
 			else{
 				
@@ -142,8 +142,8 @@ public class GameManager : MonoBehaviour
 					Debug.Log (gameManager.players [i]);
 					Debug.Log (gameManager.players [i].GetComponent < PlayerController> ().IsAlive);
 					if (gameManager.players[i].GetComponent<PlayerController>().IsAlive) {
-						winText.gameObject.SetActive (true);
-						winText.text = "Player " + gameManager.players [i].GetComponent<PlayerController> ().playerNum + " Wins!";
+						gameManager.winText.gameObject.SetActive (true);
+						gameManager.winText.text = "Player " + gameManager.players [i].GetComponent<PlayerController> ().playerNum + " Wins!";
 						break;
 					}
 				}
