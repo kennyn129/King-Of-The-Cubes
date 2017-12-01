@@ -134,21 +134,21 @@ public class PlayerController : MonoBehaviour
 		focusedTile = null;
 		moveDebuff = 1;
 		team = playerNum;
-		/*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
+		horizontalAxis = "XboxHorizontal" + playerNum.ToString();
 		verticalAxis = "XboxVertical" + playerNum.ToString();
 		hammerControl = "XboxX" + playerNum.ToString();
 		hookControl = "XboxY" + playerNum.ToString();
 		breakGroundControl = "XboxB" + playerNum.ToString();
 		jumpControl = "XboxA" + playerNum.ToString();
-		itemControl = "XboxRB" + playerNum.ToString();*/
+		itemControl = "XboxRB" + playerNum.ToString();
 
-		horizontalAxis = "Horizontal" + playerNum.ToString();
+		/*horizontalAxis = "Horizontal" + playerNum.ToString();
 		verticalAxis = "Vertical" + playerNum.ToString();
 		hammerControl = "Hammer" + playerNum.ToString();
 		hookControl = "Hook" + playerNum.ToString();
 		breakGroundControl = "BreakGround" + playerNum.ToString();
 		jumpControl = "Jump" + playerNum.ToString ();
-		itemControl = "ItemControl" + playerNum.ToString ();
+		itemControl = "ItemControl" + playerNum.ToString ();*/
 
 		//items = new Item[2];
 
