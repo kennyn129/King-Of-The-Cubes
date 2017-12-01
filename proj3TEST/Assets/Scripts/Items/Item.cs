@@ -29,7 +29,7 @@ public abstract class Item : MonoBehaviour
             height += 0.01f * alternate;
             if (height >= .7f || height <= -.3f)
                 alternate *= -1;
-            transform.Rotate(0, 1, 0);
+            transform.Rotate(0, 0, 1);
             float timeLeft = activeTimeStamp - GameManager.time;
             float percentageOfTime = timeLeft / timeToLive;
             if (percentageOfTime < .35f)
@@ -74,10 +74,10 @@ public abstract class Item : MonoBehaviour
             if (p.items.Count == 0)
             {
                 p.items.Add(this);
-                //transform.GetComponent<MeshRenderer>().enabled = false;
-                //Color c = transform.GetComponent<Renderer>().material.color;
-                //c.a = 1;
-                //transform.GetComponent<Renderer>().material.color = c;
+                transform.GetComponent<MeshRenderer>().enabled = false;
+                Color c = transform.GetComponent<Renderer>().material.color;
+                c.a = 1;
+                transform.GetComponent<Renderer>().material.color = c;
             }
             else
             {

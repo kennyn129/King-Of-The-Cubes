@@ -28,7 +28,7 @@ public class Tile : MonoBehaviour {
 
     public virtual void Reset()
     {
-        transform.GetComponent<Renderer>().material.color = originalColor;
+        //transform.GetComponent<Renderer>().material.color = originalColor;
         currentColor = originalColor;
         active = true;
         respawnTimeStamp = 0;

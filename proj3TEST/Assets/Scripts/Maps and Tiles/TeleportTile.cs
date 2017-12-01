@@ -16,7 +16,7 @@ public class TeleportTile : Tile {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") 
             && active && receiver && receiver.transform.GetComponent<TeleportTile>().active)
         {
-            collision.transform.position = receiver.transform.position + new Vector3(0, .2f, 0);
+            collision.transform.position = receiver.transform.position + new Vector3(0, 1f, 0);
         }
     }
 

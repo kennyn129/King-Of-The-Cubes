@@ -28,7 +28,7 @@ public class Dynamite : Item
         lightedUp = false;
         taken = false;
     }
-
+    /*
     public override void Blink(float percentageOfTime)
     {
         Renderer r = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
@@ -44,7 +44,7 @@ public class Dynamite : Item
             foreach (Transform child in transform.GetChild(0))
                 child.GetComponent<Renderer>().material.color = c;
         }
-    }
+    }*/
 
     public IEnumerator LightItUp()
     {
@@ -69,7 +69,7 @@ public class Dynamite : Item
         {
             Destroy(gameObject);
         }
-        transform.GetChild(0).gameObject.SetActive(lightedUp || !taken);
+        //transform.gameObject.SetActive(lightedUp || !taken);
         //if (activate)
         //{
             //StartCoroutine(LightItUp());
@@ -89,7 +89,7 @@ public class Dynamite : Item
     public override int Use(PlayerController p)
     {
 
-        //transform.GetComponent<MeshRenderer>().enabled = true;
+        transform.GetComponent<MeshRenderer>().enabled = true;
         transform.position = p.transform.position;
 
         activeTimeStamp = GameManager.time + timeBeforeExplosion;
