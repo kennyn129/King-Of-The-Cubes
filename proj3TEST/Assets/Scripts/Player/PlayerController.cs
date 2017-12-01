@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour
 
 	void useHammer(float hor, float ver)
 	{
-		//anim.SetTrigger ("HammerHit");
+		anim.SetTrigger ("HammerHit");
 		audioSource.Stop();
 		audioSource.clip = hammerSound;
 		audioSource.Play ();
@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour
 	void breakGround()
 	{
 		hammerTime = 0;
-		//anim.SetTrigger ("HammerGround");
+		anim.SetTrigger ("HammerGround");
 		UseTheForce();
 		floorHit = new RaycastHit();
 		if (Physics.Raycast(hitOrigin.position + currForceDirection.normalized * 2.25f, -Vector3.up, out floorHit, 2f, floorLayer))
@@ -390,7 +390,7 @@ public class PlayerController : MonoBehaviour
 		audioSource.Play ();
 
 
-		//anim.SetTrigger ("Hook");
+		anim.SetTrigger ("Hook");
 		UseTheForce();
 		// Instantiate hook prefab with a certain velocity
 		Vector3 shootOut;

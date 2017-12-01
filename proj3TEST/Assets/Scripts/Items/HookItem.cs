@@ -19,7 +19,7 @@ public class HookItem : MonoBehaviour {
 	}
 
 	IEnumerator getStarted() {
-		yield return new WaitForSeconds (3);
+		yield return new WaitForSeconds (1);
 		hookCollider.enabled = true;
 	}
 
