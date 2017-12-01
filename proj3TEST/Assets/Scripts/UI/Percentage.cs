@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Percentage : PlayerController {
     public Text textpercent;
     public float percent;
+	PlayerController playerscript;
+	GameObject player;
 	// Use this for initialization
     void Awake()
     {
@@ -19,8 +21,8 @@ public class Percentage : PlayerController {
 	
 	// Update is called once per frame
 	void Update () {
-        GameObject player = GameObject.FindGameObjectWithTag("Player" + playerNum.ToString());
-        PlayerController playerscript = player.GetComponent<PlayerController>();
+//        GameObject player = GameObject.FindGameObjectWithTag("Player" + playerNum.ToString());
+//        PlayerController playerscript = player.GetComponent<PlayerController>();
         percent = playerscript.healthScalar - 200;
         textpercent.text = percent.ToString("f0") + "%";
 	}

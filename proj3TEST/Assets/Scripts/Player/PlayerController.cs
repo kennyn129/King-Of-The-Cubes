@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
 	public GameObject hookPrefab;
 	public GameObject hookItemPrefab;
 
+	Text percentText;
+	int currPercent;
 	Animator anim;
 	GameObject player;
 	Rigidbody playerRB;
@@ -120,6 +123,8 @@ public class PlayerController : MonoBehaviour
 		GameObject camHolder = GameObject.Find ("Camera Holder");
 		cam = camHolder.GetComponentInChildren<CameraControl> ();
 		audioSource = GetComponent<AudioSource> ();
+//		currPercent = 0;
+//		percentText.text = currPercent.ToString();
 
 		isAlive = true;
 		reset = false;
@@ -134,21 +139,21 @@ public class PlayerController : MonoBehaviour
 		focusedTile = null;
 		moveDebuff = 1;
 		team = playerNum;
-		horizontalAxis = "XboxHorizontal" + playerNum.ToString();
+		/*horizontalAxis = "XboxHorizontal" + playerNum.ToString();
 		verticalAxis = "XboxVertical" + playerNum.ToString();
 		hammerControl = "XboxX" + playerNum.ToString();
 		hookControl = "XboxY" + playerNum.ToString();
 		breakGroundControl = "XboxB" + playerNum.ToString();
 		jumpControl = "XboxA" + playerNum.ToString();
-		itemControl = "XboxRB" + playerNum.ToString();
+		itemControl = "XboxRB" + playerNum.ToString();*/
 
-		/*horizontalAxis = "Horizontal" + playerNum.ToString();
+		horizontalAxis = "Horizontal" + playerNum.ToString();
 		verticalAxis = "Vertical" + playerNum.ToString();
 		hammerControl = "Hammer" + playerNum.ToString();
 		hookControl = "Hook" + playerNum.ToString();
 		breakGroundControl = "BreakGround" + playerNum.ToString();
 		jumpControl = "Jump" + playerNum.ToString ();
-		itemControl = "ItemControl" + playerNum.ToString ();*/
+		itemControl = "ItemControl" + playerNum.ToString ();
 
 		//items = new Item[2];
 
@@ -166,10 +171,10 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void isGroundedCheck () {
-		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.51f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,.05f), -Vector3.up, 1.51f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.51f, floorLayer)
-			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.51f, floorLayer)) {
+		if (Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, .05f), -Vector3.up, 1.45f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f, 0 ,.05f), -Vector3.up, 1.45f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(-.05f , 0, -.05f), -Vector3.up, 1.45f, floorLayer)
+			|| Physics.Raycast (hitOrigin.position + new Vector3(.05f, 0, -.05f), -Vector3.up, 1.45f, floorLayer)) {
 			isGrounded = true;
 		} else {
 			isGrounded = false;
@@ -234,7 +239,7 @@ public class PlayerController : MonoBehaviour
 
 //			GameManager.gameManager.playersInGame--;
 			GameManager.gameManager.playerDeath ();
-			gameObject.SetActive(false);
+			Destroy (this);
 		}
 
 		hammerTime += Time.deltaTime;
@@ -433,7 +438,8 @@ public class PlayerController : MonoBehaviour
 		audioSource.clip = hitSound;
 		audioSource.Play ();
 
-
+		currPercent += 5;
+		percentText.text = currPercent.ToString();
 		isDisabled = true;
 		canMove = false;
 		playerRB.velocity = Vector3.zero;
@@ -455,6 +461,8 @@ public class PlayerController : MonoBehaviour
 		audioSource.clip = hitSound;
 		audioSource.Play ();
 
+		currPercent += 5;
+		percentText.text = currPercent.ToString();
 		Debug.Log("In GetHooked");
 		Debug.Log(direction);
 		isDisabled = true;
